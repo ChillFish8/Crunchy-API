@@ -13,12 +13,12 @@ class GuildWebhooks:
         current_data = self.guild_web_hooks.find_one({'_id': guild_id})
 
         if current_data is not None:
-            QUERY = {'_id': f"{guild_id}"}
+            QUERY = {'_id': guild_id}
             new_data = {'config': config}
             resp = self.guild_web_hooks.update_one(QUERY, {'$set': new_data})
             return resp.raw_result
         else:
-            data = {'_id': f"{guild_id}", 'config': config}
+            data = {'_id': guild_id, 'config': config}
             resp = self.guild_web_hooks.insert_one(data)
             return resp.inserted_id
 

@@ -53,9 +53,8 @@ release_rss = RSSFeed(
 @task(timedelta(minutes=5))
 async def update_rss(_):
     """Runs the function every 5 minutes."""
-    await news_rss.check_update()
-    await release_rss.check_update()
-
+    # await news_rss.check_update()
+    # await release_rss.check_update()
 
 
 if __name__ == '__main__':
