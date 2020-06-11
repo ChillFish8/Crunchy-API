@@ -1,5 +1,5 @@
 # Crunchy-API
-A dedicated API and Website for Crunchy, Handling our RSS Feeds and Webhooks
+A dedicated API and Website for Crunchy, Handling our RSS Feeds and Webhooks<br>
 In production this API handles over 140,000 Requests daily and serves over 60,000 Images.
 
 ## Made for performance
