@@ -50,21 +50,20 @@ release_rss = RSSFeed(
     rss_url="http://feeds.feedburner.com/crunchyroll/rss/anime",
     change_callback=broadcast.release_callback)
 
-
 @task(timedelta(minutes=5))
 async def update_rss(_):
     """Runs the function every 5 minutes."""
-    # await news_rss.check_update()
-    # await release_rss.check_update()
+    await news_rss.check_update()
+    await release_rss.check_update()
+
 
 
 if __name__ == '__main__':
     ssl = {'cert': "./ssl_keys/cert.pem", 'key': "./ssl_keys/key.pem"}
     app.run(
         host='0.0.0.0',
-        port=80,
-        access_log=True,
+        port=443,
+        access_log=False,
         debug=False,
-        workers=2,
-        #ssl=ssl
+        ssl=ssl
     )
