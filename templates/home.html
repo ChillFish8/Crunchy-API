@@ -20,9 +20,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="../static/js/countUp/dist/countUp.min.js" type="module"></script>
-    <script src="../static/js/home_count.js" type="module"></script>
-
+    <script src="../static/js/counter/jquery.easing.js" type="text/javascript"></script>
+    <script src="../static/js/counter/jquery.easing.js" type="text/javascript"></script>
+    <script src="../static/js/counter/counter.min.js" type="text/javascript"></script>
     <style>
         .gradient {
             background: linear-gradient(150deg, #E1542A 15%, #9900FF 100%);
@@ -35,16 +35,16 @@
                 background: linear-gradient(150deg, #E1542A 15%, #9900FF 100%);
             }
     </style>
-
 </head>
-<body class="leading-normal tracking-normal text-white h-screen" style="font-family: 'Source Sans Pro', sans-serif;">
+
+<body class="leading-normal tracking-normal text-white h-auto" style="font-family: 'Source Sans Pro', sans-serif;">
 
 <!--Nav-->
-<nav class="fixed w-full z-30 top-0 text-white transition duration-500 ease-in-out bg-white" id="header" style="box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+<nav class="fixed w-full z-30 top-0 text-white transition duration-500 ease-in-out bg-white shadow-md" id="header">
 
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 ">
 
-        <div class="flex items-center" onclick="sendHome()">
+        <div class="flex items-center float-left" onclick="sendHome()">
             <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
                 <img class="inline-block w-10" src="https://cdn.discordapp.com/attachments/680350705038393344/717784643117777006/wow.png">
                 Crunchy Bot
@@ -65,13 +65,48 @@
             <ul class="list-reset lg:flex justify-end flex-1 items-center pr-8">
                 <li class="mr-3">
                     <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline px-4"
-                       href="https://discordapp.com/oauth2/authorize?client_id=656598065532239892&scope=bot&permissions=1678109696">Dashboard</a>
+                       href="https://discordapp.com/oauth2/authorize?client_id=656598065532239892&scope=bot&permissions=1678109696">Invite Crunchy</a>
                 </li>
                 <li class="mr-3">
                     <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline px-4"
-                       href="https://discordapp.com/oauth2/authorize?client_id=656598065532239892&scope=bot&permissions=1678109696">Invite Crunchy</a>
+                       href="https://top.gg/bot/656598065532239892/vote">Vote</a>
                 </li>
-                <div id="app" class="antialiased font-sans py-2 px-4">
+                <div id="dash" class="antialiased font-sans py-2 px-4">
+                      <div class="relative inline-block" @mouseover="isVisible = true" @mouseleave="isVisible = false" @keydown.enter="isVisible = !isVisible">
+                        <button type="button" class="inline-flex items-center justify-between px-2 py-1 font-medium text-gray-700 transition-all duration-500 rounded-md focus:outline-none focus:text-brand-900 sm:focus:shadow-outline">
+                          <span class="flex-shrink-0 text-black font-bold text-lg">Dashboard</span>
+                          <svg fill="currentColor" viewBox="0 0 20 20" class="flex-shrink-0 w-5 h-5 ml-1 content-center">
+                            <path :class="{ 'rotate-180': isVisible }" class="transition duration-300 ease-in-out origin-center transform"
+                                  fill-rule="evenodd"
+                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"></path>
+                          </svg>
+                        </button>
+                        <transition enter-active-class="transition duration-300 ease-out transform"
+                                    enter-class="-translate-y-3 scale-95 opacity-0"
+                                    enter-to-class="translate-y-0 scale-100 opacity-100"
+                                    leave-active-class="transition duration-150 ease-in transform"
+                                    leave-class="translate-y-0 opacity-100"
+                                    leave-to-class="-translate-y-3 opacity-0">
+                          <div v-show="isVisible" class="absolute pt-2">
+                            <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
+                              <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
+                              <div class="relative">
+                                <a href="#"
+                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                    Overview
+                                </a>
+                                <a href="#"
+                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                    Guilds
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </transition>
+                      </div>
+                    </div>
+                <div id="my-area" class="antialiased font-sans py-2 px-4">
                       <div class="relative inline-block" @mouseover="isVisible = true" @mouseleave="isVisible = false" @keydown.enter="isVisible = !isVisible">
                         <button type="button" class="inline-flex items-center justify-between px-2 py-1 font-medium text-gray-700 transition-all duration-500 rounded-md focus:outline-none focus:text-brand-900 sm:focus:shadow-outline">
                           <span class="flex-shrink-0 text-black font-bold text-lg">My Area</span>
@@ -110,9 +145,9 @@
                         </transition>
                       </div>
                     </div>
-                <button class="mx-auto lg:mx-0 hover:underline gradient text-black font-bold rounded-full mt-4 lg:mt-0 py-1 px-4 shadow opacity-100"
+                <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full mt-4 lg:mt-0 py-1 pr-4 shadow opacity-100"
                         id="navAction" onclick="location.href='/login';">
-                    <img class="h-8 pr-2 fill-current inline 1em" src="../static/images/Discord-Logo-Black.svg">
+                    <img class="h-8 pl-4 fill-current inline 1em" src="../static/images/Discord-Logo-White.svg">
                     Sign in
                 </button>
             </ul>
@@ -122,26 +157,58 @@
 </nav>
 >
 
-<div class="pt-20">
+<div class="pt-16 pb-10">
     <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <!-- left column text stuff -->
         <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-            <h1 class="my-4 text-5xl font-bold leading-tight">Kireina Anime, made for the community!</h1>
-            <p class="leading-normal text-2xl mb-8">The best site for tracking your anime and manga and getting info on
-                them!</p>
+            <h1 class="my-4 text-5xl font-bold leading-tight">Introducing Crunchy.</h1>
+            <p class="leading-normal text-3xl mb-8">The best bot for your Anime community</p>
         </div>
         <!-- Rui icon-->
         <div class="w-full md:w-3/5 py-6 text-center">
-            <h1 id="counter-main-users">Waiting SMFH</h1>
+            <div class="flex flex-wrap justify-center">
+                <div id="counter-servers" class="inline-block font-semibold text-5xl">0</div>
+                <div class="inline-block font-semibold pl-4 text-5xl">Servers</div>
+            </div>
+            <div class="flex flex-wrap justify-center">
+                <div id="counter-users" class="inline-block font-semibold text-5xl">0</div>
+                <div class="inline-block font-semibold pl-4 text-5xl">Users</div>
+            </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+      var userCounter = $("#counter-users");
+      userCounter.counter({
+        autoStart: true,
+        duration: 1200,
+        countTo: 432526,
+        placeholder: 0,
+        easing: "easeInOutQuad",
+        numberFormatter:            // function used to format the displayed numbers.
+            function(number) {
+              return Math.round(number).toLocaleString();
+            }
+      });
+      var serverCounter = $("#counter-servers");
+      serverCounter.counter({
+        autoStart: true,
+        duration: 1200,
+        countTo: 2653,
+        placeholder: 0,
+        easing: "easeInOutQuad",
+        numberFormatter:            // function used to format the displayed numbers.
+            function(number) {
+              return Math.round(number).toLocaleString();
+            }
+      });
+</script>
 
 <!-- Wave TOP svg -->
 <div class="relative -mt-12 lg:-mt-24">
     <svg version="1.1" viewBox="0 0 1428 174" xmlns="http://www.w3.org/2000/svg">
-        <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
-            <g fill="#FFFFFF" fill-rule="nonzero" transform="translate(-2.000000, 44.000000)">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
                 <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
                       opacity="0.100000001"></path>
                 <path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
@@ -159,13 +226,69 @@
 
 <!-- Section 2 Middle -->
 <section class="py-5" style="background-color: #2C2F33;">
+    <div class="container max-w-5xl mx-auto m-8">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Live feeds, tracking and more.<br>
+            Right here where you want it.</h1>
+        <div class="w-full mb-4">
+            <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+        </div>
+
+        <div class="flex flex-wrap py-5">
+            <div class="w-5/6 sm:w-1/2 p-6">
+                <h3 class="text-3xl text-white font-bold leading-none mb-3">yada yada yada</h3>
+                <p class="text-white mb-8 text-lg">
+                    yada yada yadayada yada yadayada yada yadayada yada yadayada yada yada<br></p>
+            </div>
+
+
+            <div class="w-full sm:w-1/2 p-4">
+                <img alt="Watchlist Showing" class="border-solid border-4 border-white rounded-lg"
+                     src="">
+            </div>
+        </div>
+
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row py-5">
+            <div class="w-full sm:w-1/2 p-4 ">
+                <img alt="Watchlist Showing" class="border-solid border-4 border-white rounded-lg"
+                     src="">
+            </div>
+
+            <div class="w-full sm:w-1/2 p-6 mt-6">
+                <div class="align-middle">
+                    <h3 class="text-3xl text-white font-bold leading-none mb-3">yada yada yada</h3>
+                    <p class="text-white mb-8 text-lg">
+                        Let our master system recommend you new Anime based off Anime related to previous your
+                        watchlist,
+                        genres you watch and our wildcard system!<br>
+                        Or follow whats new by scrolling down and look at the latest trending Anime that everyone is
+                        watching or look at the top rated Anime for that genre.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="flex flex-wrap py-5">
+            <div class="w-5/6 sm:w-1/2 p-6">
+                <h3 class="text-3xl text-white font-bold leading-none mb-3">How much of an anime god am I?</h3>
+                <p class="text-white mb-8 text-lg">kinda gay.<br/><br/>
+            </div>
+
+            <div class="w-full sm:w-1/2 p-4">
+                <img alt="Watchlist Showing" class="border-solid border-4 border-white rounded-lg"
+                     src="">
+            </div>
+        </div>
+    </div>
 </section>
+
 
 <!-- wave BOTTOM svg -->
 <svg class="wave-top" version="1.1" viewBox="0 0 1439 147" xmlns="http://www.w3.org/2000/svg">
-    <g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
-        <g fill-rule="nonzero" transform="translate(-1.000000, -14.000000)">
-            <g fill="#FFFFFF" transform="translate(1.000000, 15.000000)">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
+            <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
                 <g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
                     <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
                           opacity="0.100000001"></path>
@@ -196,9 +319,16 @@
     </div>
 </section>
 <script src="../static/js/home.js" type="text/javascript"></script>
+
 <script>
-  var app = new Vue({
-    el: '#app',
+  var myArea = new Vue({
+    el: '#my-area',
+    data: {
+      isVisible: false
+    }
+  })
+  var dashboard = new Vue({
+    el: '#dash',
     data: {
       isVisible: false
     }

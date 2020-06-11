@@ -11,3 +11,10 @@ async def endpoints(request):
     resp = jinja2_sanic.render_template("templates.endpoints", request, context)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
+
+@views.register_path(name="home", methods=['GET'])
+async def home(request):
+    context = {}
+    resp = jinja2_sanic.render_template("templates.home", request, context)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
