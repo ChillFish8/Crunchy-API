@@ -1,0 +1,12 @@
+Jinja2
+Pillow
+aiohttp
+bs4
+discord.py
+feedparser
+jinja2-sanic
+lxml
+pymongo
+requests
+sanic
+sanic-scheduler
