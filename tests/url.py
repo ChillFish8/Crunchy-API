@@ -1,8 +1,13 @@
-import requests
+import requests, _thread
 
-for i in range(50):
-    r = requests.get("https://crunchy-bot.live/api/nsfw/hentai")
-    try:
+def ping():
+    for i in range(50):
+        r = requests.get("http://127.0.0.1/api/nsfw/hentai")
         print(r.json()['url'])
-    except:
-        pass
+
+
+_thread.start_new_thread(ping, ())
+_thread.start_new_thread(ping, ())
+_thread.start_new_thread(ping, ())
+_thread.start_new_thread(ping, ())
+ping()

@@ -11,6 +11,8 @@ class FileManager:
             temp[folder] = []
             for file in os.listdir(f"{self.base}/nsfw/hentai/{folder}"):
                 temp[folder].append(f"https://crunchy-bot.live/{self.base}/nsfw/hentai/{folder}/{file}")
+            if len(temp[folder]) <= 0:
+                del temp[folder]
         self.nsfw = temp
 
     def serve_file(self, endpoint, filename, area=None):
