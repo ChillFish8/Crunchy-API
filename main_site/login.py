@@ -1,3 +1,4 @@
+import os
 from collections import defaultdict
 
 import aiohttp
@@ -20,7 +21,7 @@ DISCORD_PROVIDER = app.config.OAUTH_PROVIDERS['discord']
 DISCORD_PROVIDER['PROVIDER_CLASS'] = 'sanic_oauth.providers.DiscordClient'
 DISCORD_PROVIDER['SCOPE'] = "identify email guilds"
 DISCORD_PROVIDER['CLIENT_ID'] = '656598065532239892'
-DISCORD_PROVIDER['CLIENT_SECRET'] = 'ooI_Hv_ybak8wlUQ_TJ-mJqqzcJouJb-'
+DISCORD_PROVIDER['CLIENT_SECRET'] = os.getenv("CLIENT_TOKEN")
 app.config.OAUTH_PROVIDERS['default'] = DISCORD_PROVIDER
 
 
@@ -36,15 +37,12 @@ async def close_aiohttp_session(sanic_app, _loop) -> None:
 
 @app.middleware('request')
 async def add_session_to_request(request):
-    # before each request initialize a session
-    # using the client's request
     await request.app.session_interface.open(request)
 
 
 @app.middleware('response')
 async def save_session(request, response):
-    # after each request save the session,
-    # pass the response to set client cookies
+    """ Save the User token to their session """
     try:
         await request.app.session_interface.save(request, response)
     except Exception as e:
@@ -55,6 +53,6 @@ async def save_session(request, response):
 @app.route('/login')
 @login_required(provider='discord')
 async def index(request: Request, user: UserInfo) -> HTTPResponse:
-    # interact with the session like a normal dict
+    """ Used for Logging in and being redirected to the original page after login. """
     tab = request.args.get('tab', 'home')
     return redirect(tab)
