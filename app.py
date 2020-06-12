@@ -1,16 +1,16 @@
 import importlib
-import globals
 import os
-import jinja2_sanic
-import jinja2
-
 from datetime import timedelta
+
+import jinja2
+import jinja2_sanic
 from sanic_scheduler import SanicScheduler, task
 
+import globals
+from file_manager.file_serve import FileManager
 from flisk.flisk import FliskApp
 from rss.process_rss_feeds import RSSFeed
 from webhooks.broadcasts import LiveFeedBroadcasts
-from file_manager.file_serve import FileManager
 
 WEB_SERVER_DETAILS = importlib.import_module('server.settings')
 FILE_BASE = "data"
@@ -25,7 +25,7 @@ def get_templates():
     mapping = {}
     for file in os.listdir("templates"):
         if file.endswith(".html"):
-            with open(f"templates/{file}", "r") as template:
+            with open(f"templates/{file}", "r", encoding="UTF-8") as template:
                 mapping[f"templates.{file}".replace(".html", "")] = template.read()
 
     return mapping
