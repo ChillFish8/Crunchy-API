@@ -16,6 +16,7 @@ WEB_SERVER_DETAILS = importlib.import_module('server.settings')
 FILE_BASE = "data"
 
 app = FliskApp(name="Crunchy-Bot-Website", settings=WEB_SERVER_DETAILS)
+globals.Globals.app = app
 app.load()
 app.static(f"/{FILE_BASE}", f"./{FILE_BASE}")
 app.static("/static", "./static")

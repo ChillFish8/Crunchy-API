@@ -15,4 +15,5 @@ REGISTERED_APPS = [
     'api.nsfw_endpoints',
     'api.sfw_endpoints',
     'main_site.main_site_views',
+    'main_site.login',
 ]
