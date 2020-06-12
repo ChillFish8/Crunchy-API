@@ -5,6 +5,7 @@ from datetime import timedelta
 import jinja2
 import jinja2_sanic
 from sanic_scheduler import SanicScheduler, task
+from sanic_session import Session, InMemorySessionInterface
 
 import globals
 from file_manager.file_serve import FileManager
@@ -16,6 +17,7 @@ WEB_SERVER_DETAILS = importlib.import_module('server.settings')
 FILE_BASE = "data"
 
 app = FliskApp(name="Crunchy-Bot-Website", settings=WEB_SERVER_DETAILS)
+app.session = Session(app, interface=InMemorySessionInterface())
 globals.Globals.app = app
 app.load()
 app.static(f"/{FILE_BASE}", f"./{FILE_BASE}")

@@ -2,17 +2,16 @@ from collections import defaultdict
 
 import aiohttp
 from sanic.request import Request
-from sanic.response import text, HTTPResponse
-from sanic_oauth.blueprint import oauth_blueprint, login_required
-from sanic_oauth.core import UserInfo
-from sanic_session import Session, InMemorySessionInterface
+from sanic.response import HTTPResponse, redirect
 
 from globals import Globals
+from sanic_oauth.blueprint import oauth_blueprint, login_required
+from sanic_oauth.core import UserInfo
 
 app = Globals.app
 app.blueprint(oauth_blueprint)
-session = Session(app, interface=InMemorySessionInterface())
-app.session_interface = session.interface
+
+app.session_interface = app.session.interface
 
 app.config.OAUTH_REDIRECT_URI = 'http://94.0.190.160/oauth'
 app.config.OAUTH_SCOPE = 'email'
@@ -47,7 +46,6 @@ async def save_session(request, response):
     # after each request save the session,
     # pass the response to set client cookies
     try:
-
         await request.app.session_interface.save(request, response)
     except Exception as e:
         if isinstance(e, Exception):
@@ -56,6 +54,7 @@ async def save_session(request, response):
 
 @app.route('/login')
 @login_required(provider='discord')
-async def index(_request: Request, user: UserInfo) -> HTTPResponse:
-    print(user.__dict__)
-    return text("Hello world")
+async def index(request: Request, user: UserInfo) -> HTTPResponse:
+    # interact with the session like a normal dict
+    tab = request.args.get('tab', 'home')
+    return redirect(tab)
