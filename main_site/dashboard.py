@@ -18,6 +18,6 @@ async def dashboard_home(request: Request):
         user_icon = f'https://cdn.discordapp.com/avatars/{user["id"]}/{user["avatar"]}.png'
         username = user['username']
     context = {'user': username, 'icon': user_icon}
-    resp = jinja2_sanic.render_template("templates.home", request, context)
+    resp = jinja2_sanic.render_template("templates.dashboard_home", request, context)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp

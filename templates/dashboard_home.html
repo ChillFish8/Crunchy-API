@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Crunchy Bot - Dashboard</title>
+    <meta content="#FF7200" name="theme-color">
+    <meta content="https://cdn.discordapp.com/attachments/680350705038393344/717784215986634953/cheeky.png"
+          property="og:image">
+    <meta content="The dedicated Anime bot for your every need."
+          name="description">
+    <meta content="" name="keywords">
+    <meta content="" name="author">
+    <link href="../static/images/rui_head.png" rel="shortcut icon" type="image/png"/>
+    <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <!--Replace with your tailwind.css once created-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="../static/js/counter/jquery.easing.js" type="text/javascript"></script>
+    <script src="../static/js/counter/jquery.easing.js" type="text/javascript"></script>
+    <script src="../static/js/counter/counter.min.js" type="text/javascript"></script>
+    <style>
+        .gradient {
+            background: linear-gradient(150deg, #E1542A 15%, #9900FF 100%);
+        }
+
+        .not-quite-dark {
+            background: #2C2F33;
+        }
+
+        .hyper {
+            color: #32BAFF;
+        }
+
+        body {
+            background: linear-gradient(150deg, #E1542A 15%, #9900FF 100%);
+        }
+    </style>
+</head>
+
+<body class="leading-normal tracking-normal text-white h-auto" style="font-family: 'Source Sans Pro', sans-serif;">
+
+<!--Nav-->
+<nav class="fixed w-full z-30 top-0 text-white transition duration-500 ease-in-out bg-white shadow-md" id="header">
+
+    <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 ">
+
+        <div class="flex items-center float-left" onclick="sendHome()">
+            <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+               href="../home">
+                <img class="inline-block w-10"
+                     src="https://cdn.discordapp.com/attachments/680350705038393344/717784643117777006/wow.png">
+                Crunchy Bot
+            </a>
+        </div>
+
+        <div class="block lg:hidden pr-4">
+            <button class="flex items-center p-1 text-orange-800 hover:text-gray-900" id="nav-toggle">
+                <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>
+                    Menu</title>
+                    <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-white lg:bg-transparent text-black lg:p-0 z-20"
+             id="nav-content">
+            <ul class="list-reset lg:flex justify-end flex-1 items-center pr-8">
+                <li class="mr-3">
+                    <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline px-4"
+                       href="https://discordapp.com/oauth2/authorize?client_id=656598065532239892&scope=bot&permissions=1678109696">Invite
+                        Crunchy</a>
+                </li>
+                <li class="mr-3">
+                    <a class="inline-block py-2 px-4 text-black font-bold text-lg hover:underline px-4"
+                       href="https://top.gg/bot/656598065532239892/vote">Vote</a>
+                </li>
+                <div id="dash" class="antialiased font-sans py-2 px-4">
+                    <div class="relative inline-block" @mouseover="isVisible = true" @mouseleave="isVisible = false"
+                         @keydown.enter="isVisible = !isVisible">
+                        <button type="button"
+                                class="inline-flex items-center justify-between px-2 py-1 font-medium text-gray-700 transition-all duration-500 rounded-md focus:outline-none focus:text-brand-900 sm:focus:shadow-outline">
+                            <span class="flex-shrink-0 text-black font-bold text-lg">Dashboard</span>
+                            <svg fill="currentColor" viewBox="0 0 20 20"
+                                 class="flex-shrink-0 w-5 h-5 ml-1 content-center">
+                                <path :class="{ 'rotate-180': isVisible }"
+                                      class="transition duration-300 ease-in-out origin-center transform"
+                                      fill-rule="evenodd"
+                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <transition enter-active-class="transition duration-300 ease-out transform"
+                                    enter-class="-translate-y-3 scale-95 opacity-0"
+                                    enter-to-class="translate-y-0 scale-100 opacity-100"
+                                    leave-active-class="transition duration-150 ease-in transform"
+                                    leave-class="translate-y-0 opacity-100"
+                                    leave-to-class="-translate-y-3 opacity-0">
+                            <div v-show="isVisible" class="absolute pt-2">
+                                <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
+                                    <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
+                                    <div class="relative">
+                                        <a href=""
+                                           class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                            Overview
+                                        </a>
+                                        <a href="servers"
+                                           class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                            Servers
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
+                <div id="my-area" class="antialiased font-sans py-2 px-4">
+                    <div class="relative inline-block" @mouseover="isVisible = true" @mouseleave="isVisible = false"
+                         @keydown.enter="isVisible = !isVisible">
+                        <button type="button"
+                                class="inline-flex items-center justify-between px-2 py-1 font-medium text-gray-700 transition-all duration-500 rounded-md focus:outline-none focus:text-brand-900 sm:focus:shadow-outline">
+                            <span class="flex-shrink-0 text-black font-bold text-lg">My Area</span>
+                            <svg fill="currentColor" viewBox="0 0 20 20"
+                                 class="flex-shrink-0 w-5 h-5 ml-1 content-center">
+                                <path :class="{ 'rotate-180': isVisible }"
+                                      class="transition duration-300 ease-in-out origin-center transform"
+                                      fill-rule="evenodd"
+                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <transition enter-active-class="transition duration-300 ease-out transform"
+                                    enter-class="-translate-y-3 scale-95 opacity-0"
+                                    enter-to-class="translate-y-0 scale-100 opacity-100"
+                                    leave-active-class="transition duration-150 ease-in transform"
+                                    leave-class="translate-y-0 opacity-100"
+                                    leave-to-class="-translate-y-3 opacity-0">
+                            <div v-show="isVisible" class="absolute pt-2">
+                                <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
+                                    <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
+                                    <div class="relative">
+                                        <a href="../user/settings"
+                                           class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                            User Settings
+                                        </a>
+                                        <a href="../user/manager"
+                                           class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                            Character Manager
+                                        </a>
+                                        <a href="../user/collected"
+                                           class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                            Collected Characters
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
+                <div id="info" class="antialiased font-sans py-2 px-4">
+                    <div class="relative inline-block" @mouseover="isVisible = true" @mouseleave="isVisible = false"
+                         @keydown.enter="isVisible = !isVisible">
+                        <button type="button"
+                                class="inline-flex items-center justify-between px-2 py-1 font-medium text-gray-700 transition-all duration-500 rounded-md focus:outline-none focus:text-brand-900 sm:focus:shadow-outline">
+                            <span class="flex-shrink-0 text-black font-bold text-lg">Info</span>
+                            <svg fill="currentColor" viewBox="0 0 20 20"
+                                 class="flex-shrink-0 w-5 h-5 ml-1 content-center">
+                                <path :class="{ 'rotate-180': isVisible }"
+                                      class="transition duration-300 ease-in-out origin-center transform"
+                                      fill-rule="evenodd"
+                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                        <transition enter-active-class="transition duration-300 ease-out transform"
+                                    enter-class="-translate-y-3 scale-95 opacity-0"
+                                    enter-to-class="translate-y-0 scale-100 opacity-100"
+                                    leave-active-class="transition duration-150 ease-in transform"
+                                    leave-class="translate-y-0 opacity-100"
+                                    leave-to-class="-translate-y-3 opacity-0">
+                            <div v-show="isVisible" class="absolute pt-2">
+                                <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
+                                    <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
+                                    <div class="relative">
+                                        <a href="../commands"
+                                           class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                            Commands List
+                                        </a>
+                                        <a href="../status"
+                                           class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                            Status
+                                        </a>
+                                        <a href="../metrics"
+                                           class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                            Metrics
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
+                <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full mt-4 lg:mt-0 py-1 pr-4 shadow opacity-100 px-2"
+                        id="navAction" onclick="location.href='/login';">
+                    <img class="h-10 object-cover inline 1em rounded-full" src="{{ icon }}">
+                    {{ user }}
+                </button>
+            </ul>
+        </div>
+    </div>
+    <hr class="border-b border-gray-100 opacity-25 my-0 py-0"/>
+</nav>
+
+<section class="flex flex-wrap not-quite-dark w-full py-16 content-center">
+    <div class="w-full justify-center">
+        Hello
+    </div>
+
+</section>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1440 320">
+    <path fill="#2C2F33"
+          fill-opacity="1"
+          d="M0,160L14.1,144C28.2,128,56,96,85,117.3C112.9,139,141,213,169,234.7C197.6,256,226,224,254,208C282.4,192,311,192,339,192C367.1,192,395,192,424,213.3C451.8,235,480,277,508,250.7C536.5,224,565,128,593,122.7C621.2,117,649,203,678,229.3C705.9,256,734,224,762,224C790.6,224,819,256,847,256C875.3,256,904,224,932,197.3C960,171,988,149,1016,149.3C1044.7,149,1073,171,1101,176C1129.4,181,1158,171,1186,170.7C1214.1,171,1242,181,1271,181.3C1298.8,181,1327,171,1355,160C1383.5,149,1412,139,1426,133.3L1440,128L1440,0L1425.9,0C1411.8,0,1384,0,1355,0C1327.1,0,1299,0,1271,0C1242.4,0,1214,0,1186,0C1157.6,0,1129,0,1101,0C1072.9,0,1045,0,1016,0C988.2,0,960,0,932,0C903.5,0,875,0,847,0C818.8,0,791,0,762,0C734.1,0,706,0,678,0C649.4,0,621,0,593,0C564.7,0,536,0,508,0C480,0,452,0,424,0C395.3,0,367,0,339,0C310.6,0,282,0,254,0C225.9,0,198,0,169,0C141.2,0,113,0,85,0C56.5,0,28,0,14,0L0,0Z">
+
+    </path>
+</svg>
+<div class="pt-16 pb-10">
+    <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <!-- left column text stuff -->
+        <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+            <h1 class="my-4 text-5xl font-bold leading-tight">Introducing Crunchy.</h1>
+            <p class="leading-normal text-3xl mb-8">The best bot for your Anime community</p>
+        </div>
+        <!-- Rui icon-->
+        <div class="w-full md:w-3/5 py-6 text-center">
+            <div class="flex flex-wrap justify-center">
+                <div id="counter-servers" class="inline-block font-semibold text-5xl">0</div>
+                <div class="inline-block font-semibold pl-4 text-5xl">Servers</div>
+            </div>
+            <div class="flex flex-wrap justify-center">
+                <div id="counter-users" class="inline-block font-semibold text-5xl">0</div>
+                <div class="inline-block font-semibold pl-4 text-5xl">Users</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var userCounter = $("#counter-users");
+    userCounter.counter({
+        autoStart: true,
+        duration: 1200,
+        countTo: 432526,
+        placeholder: 0,
+        easing: "easeInOutQuad",
+        numberFormatter:            // function used to format the displayed numbers.
+            function (number) {
+                return Math.round(number).toLocaleString();
+            }
+    });
+    var serverCounter = $("#counter-servers");
+    serverCounter.counter({
+        autoStart: true,
+        duration: 1200,
+        countTo: 2653,
+        placeholder: 0,
+        easing: "easeInOutQuad",
+        numberFormatter:            // function used to format the displayed numbers.
+            function (number) {
+                return Math.round(number).toLocaleString();
+            }
+    });
+</script>
+
+<!-- Wave TOP svg -->
+<div class="relative -mt-12 lg:-mt-24">
+    <svg version="1.1" viewBox="0 0 1428 174" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
+                      opacity="0.100000001"></path>
+                <path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
+                      opacity="0.100000001"></path>
+                <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
+                      id="Path-4" opacity="0.200000003"></path>
+            </g>
+            <g fill="#2C2F33" fill-rule="nonzero" transform="translate(-4.000000, 76.000000)">
+                <path d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"></path>
+            </g>
+        </g>
+    </svg>
+</div>
+
+
+<!-- Section 2 Middle -->
+<section class="py-5" style="background-color: #2C2F33;">
+    <div class="container max-w-5xl mx-auto m-8">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Live feeds, tracking and
+            more.<br>
+            Right here where you want it.</h1>
+        <div class="w-full mb-4">
+            <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+        </div>
+
+        <div class="flex flex-wrap py-5">
+            <div class="w-5/6 sm:w-1/2 p-6  self-center">
+                <h3 class="text-3xl text-white font-bold leading-none mb-3">Tracking</h3>
+                <p class="text-white mb-8 text-lg">
+                    Keep track of all your Anime and manga with the use of out Watchlist, Favourites and Recommended
+                    commands! Let users recommend you Anime or Manga, Favourite the ones you want to remember and save
+                    others for later with Watchlist!
+                </p>
+            </div>
+
+
+            <div class="w-full sm:w-1/2 p-4">
+                <div class="embed w-full h-full rounded-l border-l-4 pb-4"
+                     style="border-color: #e87e15; background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+                    <div class="block h-full">
+                        <div class="inline-block h-full">
+                            <div class="flex w-full pl-2">
+                                <div class="flex">
+                                    <img src="https://images-ext-1.discordapp.net/external/ipStPVjgzmqg7s_dUIVecKUnGF312l0kM06spDh3ozc/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/290923752475066368/e5c62d816fae546259ff96f819bf3a33.webp"
+                                         class="inline-block rounded-full h-12 w-12 p-2">
+                                    <div class="inline-block font-medium p-2 hover:underline cursor-pointer self-center"
+                                         style="font-size: 20px;">ハーリさん (CF8)'s favourites
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content px-2">
+                                <a class="block font-semibold px-2 py-3">
+                                    <p class="inline-block text-white">1 ) - </p>
+                                    <p class="inline-block pl-1 hyper hover:underline cursor-pointer">DARLING in the
+                                        FRANXX</p>
+                                </a>
+                                <a class="block font-semibold px-2 py-3">
+                                    <p class="inline-block text-white">2 ) - </p>
+                                    <p class="inline-block pl-1 hyper hover:underline cursor-pointer">Tower of God</p>
+                                </a>
+                                <a class="block font-semibold px-2 py-3">
+                                    <p class="inline-block text-white">3 ) - </p>
+                                    <p class="inline-block pl-1">ERASED</p>
+                                </a>
+                                <a class="block font-semibold px-2 pt-3 pb-1">
+                                    <p class="inline-block text-white">4 ) - </p>
+                                    <p class="inline-block pl-1 hyper hover:underline cursor-pointer">Your lie in
+                                        April</p>
+                                </a>
+                                <div class="footer">
+                                    <div class="px-2" style="color: #46474F;">Page 1 / 1</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block h-full pr-2  float-right">
+                            <img src="https://cdn.discordapp.com/attachments/680350705038393344/717784208075915274/exitment.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row py-5">
+            <div class="w-full sm:w-1/2 p-4 ">
+                <div class="embed w-full h-full rounded-l border-l-4 pb-4"
+                     style="border-color: #e87e15; background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+                    <div class="block h-full">
+                        <div class="inline-block h-full">
+                            <div class="flex w-full pl-2 pt-2">
+                                <div class="flex">
+                                    <img src="https://images-ext-1.discordapp.net/external/wxHt-1g-EhLUVIDxlM_TSnlfxCmFpLoMvzxPcAKykPU/%3Fv%3D1/https/cdn.discordapp.com/emojis/676087821596885013.png"
+                                         class="inline-block rounded-full h-12 w-12 p-2">
+                                    <div class="inline-block font-medium p-2 hover:underline cursor-pointer self-center"
+                                         style="font-size: 20px;">
+                                        Crunchyroll Anime News! - Click for more!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content px-2">
+                                <a class="block font-medium px-4 pl-2">
+                                    <a class="inline-block pl-2 hyper hover:underline cursor-pointer"
+                                       href="https://www.crunchyroll.com/anime-news/2020/06/12/hiro-mashimas-edens-zero-to-get-tv-anime-adaptation">Read
+                                        More</a>
+                                    <p class="inline-block text-white">|</p>
+                                    <a class="inline-block pl-1 hyper hover:underline cursor-pointer"
+                                       href="https://top.gg/bot/656598065532239892/vote">Vote for Crunchy</a>
+                                </a>
+                                <img class="p-2" src="//crunchy-bot.live/data/news/b1p2JiVlbHJ7c0s.png">
+                                <div class="footer">
+                                    <div class="px-2 font-normal" style="color: #46474F;">
+                                        Part of Crunchy, the Crunchyroll bot. Powered by CF8
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap w-full sm:w-1/2 p-6 mt-6">
+                <div class="align-middle self-center">
+                    <h3 class="text-3xl text-white font-bold leading-none mb-3">Live Feeds</h3>
+                    <p class="text-white mb-8 text-lg">
+                        Get live News and Releases from Crunchyroll sent straight to your server with our
+                        unique webhook system, providing a fun and exciting way to get the latest info.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap py-5">
+            <div class="w-5/6 sm:w-1/2 p-6  self-center">
+                <h3 class="text-3xl text-white font-bold leading-none mb-3">Built for a community</h3>
+                <p class="text-white mb-8 text-lg">
+                    Crunchy offers the ability for servers to hold competitions between each other or just
+                    view how much Anime the people in the server are watching thanks to our custom dashboard.
+                </p>
+            </div>
+            <div class="w-full sm:w-1/2 p-4">
+                <img alt="Watchlist Showing" class="rounded-lg"
+                     src="../static/images/home_svgs/undraw_personal_goals_edgd.svg">
+            </div>
+        </div>
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row py-5">
+            <div class="w-full sm:w-1/2 p-4 ">
+                <div class="embed w-full h-full rounded-l border-l-4 pb-4"
+                     style="border-color: #e87e15; background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+                    <div class="block h-full">
+                        <div class="inline-block h-full">
+                            <div class="flex w-full pl-2">
+                                <div class="flex">
+                                    <img src="https://images-ext-1.discordapp.net/external/ipStPVjgzmqg7s_dUIVecKUnGF312l0kM06spDh3ozc/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/290923752475066368/e5c62d816fae546259ff96f819bf3a33.webp"
+                                         class="inline-block rounded-full h-12 w-12 p-2">
+                                    <div class="inline-block font-medium p-2 hover:underline cursor-pointer self-center"
+                                         style="font-size: 20px;">ハーリさん (CF8)'s characters
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content px-2">
+                                <a class="block font-semibold px-2 py-3">
+                                    <p class="inline-block text-white">1 ) - </p>
+                                    <p class="inline-block pl-1">Zero Two</p>
+                                    <p class="inline-block pl-1 font-medium">( Level 4 )</p>
+                                </a>
+                                <a class="block font-semibold px-2 py-3">
+                                    <p class="inline-block text-white">2 ) - </p>
+                                    <p class="inline-block pl-1">Hero</p>
+                                    <p class="inline-block pl-1 font-medium">( Level 1 )</p>
+                                </a>
+                                <a class="block font-semibold px-2 py-3">
+                                    <p class="inline-block text-white">3 ) - </p>
+                                    <p class="inline-block pl-1">Eiichirou Natsuki</p>
+                                    <p class="inline-block pl-1 font-medium">( Level 2 )</p>
+                                </a>
+                                <a class="block font-semibold px-2 pt-3 pb-1">
+                                    <p class="inline-block text-white">4 ) - </p>
+                                    <p class="inline-block pl-1">Hwa Ryun</p>
+                                    <p class="inline-block pl-1 font-medium">( Level 7 )</p>
+                                </a>
+                                <div class="footer">
+                                    <div class="px-2" style="color: #46474F;">Page 1 / 2</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block h-full pr-2 float-right">
+                            <img src="https://cdn.discordapp.com/emojis/717784139943641088.png?v=1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full sm:w-1/2 p-6 mt-6">
+                <div class="align-middle self-center">
+                    <h3 class="text-3xl text-white font-bold leading-none mb-3">Waifu collection, MMO and more!</h3>
+                    <p class="text-white mb-8 text-lg">
+                        Collect Waifus from over 60,000 to choose from!<br>
+                        Level them up by playing mini-games
+                        and raise your power by battling others.<br>
+                        Join forces with other users to create Guilds and battle other teams in legendary events.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap py-5">
+            <div class="w-5/6 sm:w-1/2 p-6 self-center">
+                <h3 class="text-3xl text-white font-bold leading-none mb-3">Lotta Lewds</h3>
+                <p class="text-white mb-8 text-lg">
+                    With Over 24,000 Images available we offer one of the largest NSFW selections available.<br>
+                    NSFW not for you and your server? Dont worry!<br>
+                    You can use the <i>"togglensfw" </i>
+                    command to disable NSFW for your server keeping it family friendly!
+                </p>
+            </div>
+
+            <div class="w-full sm:w-1/2 p-4">
+                <img alt="Watchlist Showing" class="rounded-full w-auto object-cover"
+                     src="../static/images/home_svgs/002_noback_crop.png">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- wave BOTTOM svg -->
+<svg class="wave-top" version="1.1" viewBox="0 0 1439 147" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
+            <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
+                <g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
+                    <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
+                          opacity="0.100000001"></path>
+                    <path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
+                          opacity="0.100000001"></path>
+                    <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
+                          opacity="0.200000003"></path>
+                </g>
+            </g>
+            <g class="wave" fill="#2C2F33">
+                <path d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+
+<section class="container mx-auto text-center py-6 mb-12">
+
+    <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Get started with Crunchy in your
+        server now!</h1>
+    <div class="w-full mb-4">
+        <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+    </div>
+    <div class="space-x-4">
+        <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-4 py-4 px-8 shadow-lg"
+                onclick="window.location.href='https://discordapp.com/oauth2/authorize?client_id=656598065532239892&scope=bot&permissions=1678109696';">
+            Invite Crunchy
+        </button>
+    </div>
+</section>
+
+<!-- Footer Area -->
+<div class="relative -mt-12 lg:-mt-24">
+    <svg version="1.1" viewBox="0 0 1428 174" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
+                      opacity="0.100000001"></path>
+                <path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
+                      opacity="0.100000001"></path>
+                <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
+                      id="Path-4" opacity="0.200000003"></path>
+            </g>
+            <g fill="#2C2F33" fill-rule="nonzero" transform="translate(-4.000000, 76.000000)">
+                <path d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"></path>
+            </g>
+        </g>
+    </svg>
+</div>
+
+<div class="not-quite-dark">
+    <footer class="flex flex-wrap items-center not-quite-dark py-4">
+        <div class="flex justify-around w-full">
+            <div class="justify-center">
+                <h1 class="block text-gray-600 text-center font-semibold py-2">Useful Links</h1>
+                <a class="block text-gray-500 text-center hover:underline cursor-pointer text-sm"
+                   href="https://top.gg/bot/656598065532239892/vote">Vote for Crunchy</a>
+                <a class="block text-gray-500 text-center hover:underline cursor-pointer text-sm" href="premium">Get
+                    Crunchy Premium</a>
+                <a class="block text-gray-500 text-center hover:underline cursor-pointer text-sm"
+                   href="https://github.com/ChillFish8/Crunchy">Github</a>
+            </div>
+            <div class="justify-center">
+                <h1 class="block text-gray-600 text-center font-semibold py-2">Info</h1>
+                <a class="block text-gray-500 text-center hover:underline cursor-pointer text-sm" href="commands">Commands</a>
+                <a class="block text-gray-500 text-center hover:underline cursor-pointer text-sm"
+                   href="metrics">Metrics</a>
+                <a class="block text-gray-500 text-center hover:underline cursor-pointer text-sm"
+                   href="status">Status</a>
+            </div>
+            <div class="justify-center">
+                <h1 class="block text-gray-600 text-center font-semibold py-2">Api</h1>
+                <a class="block text-gray-500 text-center hover:underline cursor-pointer text-sm" href="api/endpoints">You
+                    can view our public api here.</a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="../static/js/home.js" type="text/javascript"></script>
+<script>
+    var myArea = new Vue({
+        el: '#my-area',
+        data: {
+            isVisible: false
+        }
+    })
+    var dashboard = new Vue({
+        el: '#dash',
+        data: {
+            isVisible: false
+        }
+    })
+    var info = new Vue({
+        el: '#info',
+        data: {
+            isVisible: false
+        }
+    })
+</script>
+</body>
+</html>
