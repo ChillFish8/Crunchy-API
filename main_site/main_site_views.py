@@ -1,5 +1,4 @@
 import jinja2_sanic
-import jinja2
 from sanic import response
 
 from flisk import views
