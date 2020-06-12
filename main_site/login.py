@@ -55,5 +55,4 @@ async def save_session(request, response):
 @login_required(provider='discord')
 async def index(request: Request, user: UserInfo) -> HTTPResponse:
     """ Used for Logging in and being redirected to the original page after login. """
-    tab = request.args.get('tab', 'home')
-    return redirect(tab)
+    return redirect('home')
