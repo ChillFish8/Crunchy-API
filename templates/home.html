@@ -48,8 +48,10 @@
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 ">
 
         <div class="flex items-center float-left" onclick="sendHome()">
-            <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
-                <img class="inline-block w-10" src="https://cdn.discordapp.com/attachments/680350705038393344/717784643117777006/wow.png">
+            <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl"
+               href="home">
+                <img class="inline-block w-10"
+                     src="https://cdn.discordapp.com/attachments/680350705038393344/717784643117777006/wow.png">
                 Crunchy Bot
             </a>
         </div>
@@ -85,30 +87,30 @@
                                   clip-rule="evenodd"></path>
                           </svg>
                         </button>
-                        <transition enter-active-class="transition duration-300 ease-out transform"
-                                    enter-class="-translate-y-3 scale-95 opacity-0"
-                                    enter-to-class="translate-y-0 scale-100 opacity-100"
-                                    leave-active-class="transition duration-150 ease-in transform"
-                                    leave-class="translate-y-0 opacity-100"
-                                    leave-to-class="-translate-y-3 opacity-0">
-                          <div v-show="isVisible" class="absolute pt-2">
-                            <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
-                              <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
-                              <div class="relative">
-                                <a href="#"
-                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
-                                    Overview
-                                </a>
-                                <a href="#"
-                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
-                                    Servers
-                                </a>
+                          <transition enter-active-class="transition duration-300 ease-out transform"
+                                      enter-class="-translate-y-3 scale-95 opacity-0"
+                                      enter-to-class="translate-y-0 scale-100 opacity-100"
+                                      leave-active-class="transition duration-150 ease-in transform"
+                                      leave-class="translate-y-0 opacity-100"
+                                      leave-to-class="-translate-y-3 opacity-0">
+                              <div v-show="isVisible" class="absolute pt-2">
+                                  <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
+                                      <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
+                                      <div class="relative">
+                                          <a href="dashboard/main"
+                                             class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                              Overview
+                                          </a>
+                                          <a href="dashboard/servers"
+                                             class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                              Servers
+                                          </a>
+                                      </div>
+                                  </div>
                               </div>
-                            </div>
-                          </div>
-                        </transition>
+                          </transition>
                       </div>
-                    </div>
+                </div>
                 <div id="my-area" class="antialiased font-sans py-2 px-4">
                       <div class="relative inline-block" @mouseover="isVisible = true" @mouseleave="isVisible = false" @keydown.enter="isVisible = !isVisible">
                         <button type="button" class="inline-flex items-center justify-between px-2 py-1 font-medium text-gray-700 transition-all duration-500 rounded-md focus:outline-none focus:text-brand-900 sm:focus:shadow-outline">
@@ -120,34 +122,34 @@
                                   clip-rule="evenodd"></path>
                           </svg>
                         </button>
-                        <transition enter-active-class="transition duration-300 ease-out transform"
-                                    enter-class="-translate-y-3 scale-95 opacity-0"
-                                    enter-to-class="translate-y-0 scale-100 opacity-100"
-                                    leave-active-class="transition duration-150 ease-in transform"
-                                    leave-class="translate-y-0 opacity-100"
-                                    leave-to-class="-translate-y-3 opacity-0">
-                          <div v-show="isVisible" class="absolute pt-2">
-                            <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
-                              <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
-                              <div class="relative">
-                                <a href="#"
-                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
-                                    User Settings
-                                </a>
-                                <a href="#"
-                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
-                                    Character Manager
-                                </a>
-                                <a href="#"
-                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
-                                    Collected Characters
-                                </a>
+                          <transition enter-active-class="transition duration-300 ease-out transform"
+                                      enter-class="-translate-y-3 scale-95 opacity-0"
+                                      enter-to-class="translate-y-0 scale-100 opacity-100"
+                                      leave-active-class="transition duration-150 ease-in transform"
+                                      leave-class="translate-y-0 opacity-100"
+                                      leave-to-class="-translate-y-3 opacity-0">
+                              <div v-show="isVisible" class="absolute pt-2">
+                                  <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
+                                      <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
+                                      <div class="relative">
+                                          <a href="user/settings"
+                                             class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                              User Settings
+                                          </a>
+                                          <a href="user/manager"
+                                             class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                              Character Manager
+                                          </a>
+                                          <a href="user/collected"
+                                             class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                              Collected Characters
+                                          </a>
+                                      </div>
+                                  </div>
                               </div>
-                            </div>
-                          </div>
-                        </transition>
+                          </transition>
                       </div>
-                    </div>
+                </div>
                 <div id="info" class="antialiased font-sans py-2 px-4">
                       <div class="relative inline-block" @mouseover="isVisible = true" @mouseleave="isVisible = false" @keydown.enter="isVisible = !isVisible">
                         <button type="button" class="inline-flex items-center justify-between px-2 py-1 font-medium text-gray-700 transition-all duration-500 rounded-md focus:outline-none focus:text-brand-900 sm:focus:shadow-outline">
@@ -159,38 +161,38 @@
                                   clip-rule="evenodd"></path>
                           </svg>
                         </button>
-                        <transition enter-active-class="transition duration-300 ease-out transform"
-                                    enter-class="-translate-y-3 scale-95 opacity-0"
-                                    enter-to-class="translate-y-0 scale-100 opacity-100"
-                                    leave-active-class="transition duration-150 ease-in transform"
-                                    leave-class="translate-y-0 opacity-100"
-                                    leave-to-class="-translate-y-3 opacity-0">
-                          <div v-show="isVisible" class="absolute pt-2">
-                            <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
-                              <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
-                              <div class="relative">
-                                <a href="#"
-                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
-                                    Commands List
-                                </a>
-                                <a href="#"
-                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
-                                    Status
-                                </a>
-                                <a href="#"
-                                   class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
-                                    Metrics
-                                </a>
+                          <transition enter-active-class="transition duration-300 ease-out transform"
+                                      enter-class="-translate-y-3 scale-95 opacity-0"
+                                      enter-to-class="translate-y-0 scale-100 opacity-100"
+                                      leave-active-class="transition duration-150 ease-in transform"
+                                      leave-class="translate-y-0 opacity-100"
+                                      leave-to-class="-translate-y-3 opacity-0">
+                              <div v-show="isVisible" class="absolute pt-2">
+                                  <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
+                                      <div class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"></div>
+                                      <div class="relative">
+                                          <a href="commands"
+                                             class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                              Commands List
+                                          </a>
+                                          <a href="status"
+                                             class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                              Status
+                                          </a>
+                                          <a href="metrics"
+                                             class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-400 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out">
+                                              Metrics
+                                          </a>
+                                      </div>
+                                  </div>
                               </div>
-                            </div>
-                          </div>
-                        </transition>
+                          </transition>
                       </div>
-                    </div>
-                <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full mt-4 lg:mt-0 py-1 pr-4 shadow opacity-100"
+                </div>
+                <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full mt-4 lg:mt-0 py-1 pr-4 shadow opacity-100 px-2"
                         id="navAction" onclick="location.href='/login';">
-                    <img class="h-8 pl-4 fill-current inline 1em" src="../static/images/Discord-Logo-White.svg">
-                    Sign in
+                    <img class="h-10 object-cover inline 1em rounded-full" src="{{ icon }}">
+                    {{ user }}
                 </button>
             </ul>
         </div>
@@ -269,14 +271,15 @@
 <!-- Section 2 Middle -->
 <section class="py-5" style="background-color: #2C2F33;">
     <div class="container max-w-5xl mx-auto m-8">
-        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Live feeds, tracking and more.<br>
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Live feeds, tracking and
+            more.<br>
             Right here where you want it.</h1>
         <div class="w-full mb-4">
             <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
         </div>
 
         <div class="flex flex-wrap py-5">
-            <div class="w-5/6 sm:w-1/2 p-6">
+            <div class="w-5/6 sm:w-1/2 p-6  self-center">
                 <h3 class="text-3xl text-white font-bold leading-none mb-3">Tracking</h3>
                 <p class="text-white mb-8 text-lg">
                     Keep track of all your Anime and manga with the use of out Watchlist, Favourites and Recommended
@@ -370,8 +373,8 @@
                 </div>
             </div>
 
-            <div class="w-full sm:w-1/2 p-6 mt-6">
-                <div class="align-middle">
+            <div class="flex flex-wrap w-full sm:w-1/2 p-6 mt-6">
+                <div class="align-middle self-center">
                     <h3 class="text-3xl text-white font-bold leading-none mb-3">Live Feeds</h3>
                     <p class="text-white mb-8 text-lg">
                         Get live News and Releases from Crunchyroll sent straight to your server with our
@@ -382,7 +385,7 @@
         </div>
 
         <div class="flex flex-wrap py-5">
-            <div class="w-5/6 sm:w-1/2 p-6">
+            <div class="w-5/6 sm:w-1/2 p-6  self-center">
                 <h3 class="text-3xl text-white font-bold leading-none mb-3">Built for a community</h3>
                 <p class="text-white mb-8 text-lg">
                     Crunchy offers the ability for servers to hold competitions between each other or just
@@ -444,7 +447,7 @@
             </div>
 
             <div class="w-full sm:w-1/2 p-6 mt-6">
-                <div class="align-middle">
+                <div class="align-middle self-center">
                     <h3 class="text-3xl text-white font-bold leading-none mb-3">Waifu collection, MMO and more!</h3>
                     <p class="text-white mb-8 text-lg">
                         Collect Waifus from over 60,000 to choose from!<br>
@@ -457,7 +460,7 @@
         </div>
 
         <div class="flex flex-wrap py-5">
-            <div class="w-5/6 sm:w-1/2 p-6">
+            <div class="w-5/6 sm:w-1/2 p-6 self-center">
                 <h3 class="text-3xl text-white font-bold leading-none mb-3">Lotta Lewds</h3>
                 <p class="text-white mb-8 text-lg">
                     With Over 24,000 Images available we offer one of the largest NSFW selections available.<br>
@@ -468,7 +471,7 @@
             </div>
 
             <div class="w-full sm:w-1/2 p-4">
-                <img alt="Watchlist Showing" class="rounded-lg w-auto object-cover"
+                <img alt="Watchlist Showing" class="rounded-full w-auto object-cover"
                      src="../static/images/home_svgs/002_noback_crop.png">
             </div>
         </div>

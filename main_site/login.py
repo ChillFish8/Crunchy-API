@@ -11,17 +11,18 @@ from sanic_oauth.core import UserInfo
 
 app = Globals.app
 app.blueprint(oauth_blueprint)
-
 app.session_interface = app.session.interface
 
 app.config.OAUTH_REDIRECT_URI = 'http://94.0.190.160/oauth'
 app.config.OAUTH_SCOPE = 'email'
 app.config.OAUTH_PROVIDERS = defaultdict(dict)
+
 DISCORD_PROVIDER = app.config.OAUTH_PROVIDERS['discord']
 DISCORD_PROVIDER['PROVIDER_CLASS'] = 'sanic_oauth.providers.DiscordClient'
 DISCORD_PROVIDER['SCOPE'] = "identify email guilds"
 DISCORD_PROVIDER['CLIENT_ID'] = '656598065532239892'
 DISCORD_PROVIDER['CLIENT_SECRET'] = os.getenv("CLIENT_TOKEN")
+
 app.config.OAUTH_PROVIDERS['default'] = DISCORD_PROVIDER
 
 

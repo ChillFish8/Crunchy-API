@@ -16,4 +16,5 @@ REGISTERED_APPS = [
     'api.sfw_endpoints',
     'main_site.main_site_views',
     'main_site.login',
+    'main_site.dashboard',
 ]
