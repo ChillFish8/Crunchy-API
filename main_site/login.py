@@ -13,7 +13,7 @@ app = Globals.app
 app.blueprint(oauth_blueprint)
 app.session_interface = app.session.interface
 
-app.config.OAUTH_REDIRECT_URI = 'http://94.0.190.160/oauth'
+app.config.OAUTH_REDIRECT_URI = 'http://test.crunchy-bot.live/oauth'
 app.config.OAUTH_SCOPE = 'email'
 app.config.OAUTH_PROVIDERS = defaultdict(dict)
 

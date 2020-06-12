@@ -24,6 +24,8 @@
     <script src="../static/js/counter/jquery.easing.js" type="text/javascript"></script>
     <script src="../static/js/counter/jquery.easing.js" type="text/javascript"></script>
     <script src="../static/js/counter/counter.min.js" type="text/javascript"></script>
+    <link href="../static/js/morris.js-0.5.1/morris.css" rel="stylesheet">
+    <script src="../static/js/morris.js-0.5.1/morris.js"></script>
     <style>
         .gradient {
             background: linear-gradient(150deg, #E1542A 15%, #9900FF 100%);
@@ -216,7 +218,7 @@
     <hr class="border-b border-gray-100 opacity-25 my-0 py-0"/>
 </nav>
 
-<section class="pb-4 pt-16" style="background-color: #2C2F33;">
+<section class="pb-2 pt-16" style="background-color: #2C2F33;">
     <div class="container max-w-5xl mx-auto m-8">
         <h1 class="w-full my-2 text-6xl font-bold leading-tight text-center text-white">
             Crunchy's Web Dashboard
@@ -224,47 +226,74 @@
         <div class="w-full mb-4">
             <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
         </div>
+        <div class="w-auto pt-4 flex justify-center pb-4">
+            <div class="block px-4 buttons">
+                <div class="px-2 inline-block">
+
+                </div>
+            </div>
+        </div>
+        <div class="px-2"
+             style="background-color: #23272A;box-shadow: 0 2px 5px 5px #0F1216;">
+            <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Recently Managed</h1>
+            <div class="w-full mb-4">
+                <div class="h-1 mx-auto gradient w-96 opacity-1 my-0 py-0 rounded-full"></div>
+            </div>
+            <div class="container mx-auto inline-block">
+                <div class="flex content-start flex-wrap h-auto">
+                    {% for guild in recent_guilds %}
+                        <div class="w-1/2 p-2">
+                            <div class="p-5 shadow"
+                                 style="background-color: #2C2F33;box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+                                <div class="flex content-start">
+                                    <img class="h-40 w-40 object-fit rounded-full" src="{{ guild.url }}"
+                                         alt="{{ guild.name }}">
+                                    <div class="inline-block px-5">
+                                        <h1 class="align-top text-2xl font-semibold">{{ guild.name }}</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="flex w-full py-4">
+                <div class="flex justify-center w-full">
+                    <a class="cursor-pointer transition duration-300 ease-in-out gradient transform hover:scale-110 hover:scale-x-120 text-white font-bold rounded-full px-4 py-1"
+                       onclick="setActiveClass(this, 'data-sec-1')">
+                        View All Servers
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 <svg xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 1440 320">
+     viewBox="0 0 1440 340">
     <path fill="#2C2F33"
           fill-opacity="1"
           d="M0,160L14.1,144C28.2,128,56,96,85,117.3C112.9,139,141,213,169,234.7C197.6,256,226,224,254,208C282.4,192,311,192,339,192C367.1,192,395,192,424,213.3C451.8,235,480,277,508,250.7C536.5,224,565,128,593,122.7C621.2,117,649,203,678,229.3C705.9,256,734,224,762,224C790.6,224,819,256,847,256C875.3,256,904,224,932,197.3C960,171,988,149,1016,149.3C1044.7,149,1073,171,1101,176C1129.4,181,1158,171,1186,170.7C1214.1,171,1242,181,1271,181.3C1298.8,181,1327,171,1355,160C1383.5,149,1412,139,1426,133.3L1440,128L1440,0L1425.9,0C1411.8,0,1384,0,1355,0C1327.1,0,1299,0,1271,0C1242.4,0,1214,0,1186,0C1157.6,0,1129,0,1101,0C1072.9,0,1045,0,1016,0C988.2,0,960,0,932,0C903.5,0,875,0,847,0C818.8,0,791,0,762,0C734.1,0,706,0,678,0C649.4,0,621,0,593,0C564.7,0,536,0,508,0C480,0,452,0,424,0C395.3,0,367,0,339,0C310.6,0,282,0,254,0C225.9,0,198,0,169,0C141.2,0,113,0,85,0C56.5,0,28,0,14,0L0,0Z">
 
     </path>
 </svg>
-<div class="pt-16 pb-10">
+<div class="pb-10">
     <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-        <div class="py-16"></div>
+        <div class="w-full flex flex-wrap w-full pb-16">
+            <div class="flex justify-around self-center w-full h-auto">
+                <div class="self-center text-center px-4 py-2 m-2">
+                    <h1 class="text-5xl font-semibold">Get people involved in your server<br>with team events</h1>
+                    <div class="w-full mb-4">
+                        <div class="h-1 mx-auto w-96 opacity-100 my-0 py-1 rounded-full"
+                             style="background-color: #2C2F33"></div>
+                    </div>
+                </div>
+                <div class="rounded-full" id="stats-chart-1"
+                     style="height: 400px;width: 400px;background: #2C2F33;"></div>
+            </div>
+        </div>
     </div>
 </div>
-<script type="text/javascript">
-    var userCounter = $("#counter-users");
-    userCounter.counter({
-        autoStart: true,
-        duration: 1200,
-        countTo: 432526,
-        placeholder: 0,
-        easing: "easeInOutQuad",
-        numberFormatter:            // function used to format the displayed numbers.
-            function (number) {
-                return Math.round(number).toLocaleString();
-            }
-    });
-    var serverCounter = $("#counter-servers");
-    serverCounter.counter({
-        autoStart: true,
-        duration: 1200,
-        countTo: 2653,
-        placeholder: 0,
-        easing: "easeInOutQuad",
-        numberFormatter:            // function used to format the displayed numbers.
-            function (number) {
-                return Math.round(number).toLocaleString();
-            }
-    });
-</script>
+
 
 <!-- Wave TOP svg -->
 <div class="relative -mt-12 lg:-mt-24">
@@ -276,212 +305,7 @@
 
 <!-- Section 2 Middle -->
 <section class="py-5" style="background-color: #2C2F33;">
-    <div class="container max-w-5xl mx-auto m-8">
-        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Live feeds, tracking and
-            more.<br>
-            Right here where you want it.</h1>
-        <div class="w-full mb-4">
-            <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
-        </div>
 
-        <div class="flex flex-wrap py-5">
-            <div class="w-5/6 sm:w-1/2 p-6  self-center">
-                <h3 class="text-3xl text-white font-bold leading-none mb-3">Tracking</h3>
-                <p class="text-white mb-8 text-lg">
-                    Keep track of all your Anime and manga with the use of out Watchlist, Favourites and Recommended
-                    commands! Let users recommend you Anime or Manga, Favourite the ones you want to remember and save
-                    others for later with Watchlist!
-                </p>
-            </div>
-
-
-            <div class="w-full sm:w-1/2 p-4">
-                <div class="embed w-full h-full rounded-l border-l-4 pb-4"
-                     style="border-color: #e87e15; background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
-                    <div class="block h-full">
-                        <div class="inline-block h-full">
-                            <div class="flex w-full pl-2">
-                                <div class="flex">
-                                    <img src="https://images-ext-1.discordapp.net/external/ipStPVjgzmqg7s_dUIVecKUnGF312l0kM06spDh3ozc/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/290923752475066368/e5c62d816fae546259ff96f819bf3a33.webp"
-                                         class="inline-block rounded-full h-12 w-12 p-2">
-                                    <div class="inline-block font-medium p-2 hover:underline cursor-pointer self-center"
-                                         style="font-size: 20px;">ハーリさん (CF8)'s favourites
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content px-2">
-                                <a class="block font-semibold px-2 py-3">
-                                    <p class="inline-block text-white">1 ) - </p>
-                                    <p class="inline-block pl-1 hyper hover:underline cursor-pointer">DARLING in the
-                                        FRANXX</p>
-                                </a>
-                                <a class="block font-semibold px-2 py-3">
-                                    <p class="inline-block text-white">2 ) - </p>
-                                    <p class="inline-block pl-1 hyper hover:underline cursor-pointer">Tower of God</p>
-                                </a>
-                                <a class="block font-semibold px-2 py-3">
-                                    <p class="inline-block text-white">3 ) - </p>
-                                    <p class="inline-block pl-1">ERASED</p>
-                                </a>
-                                <a class="block font-semibold px-2 pt-3 pb-1">
-                                    <p class="inline-block text-white">4 ) - </p>
-                                    <p class="inline-block pl-1 hyper hover:underline cursor-pointer">Your lie in
-                                        April</p>
-                                </a>
-                                <div class="footer">
-                                    <div class="px-2" style="color: #46474F;">Page 1 / 1</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="inline-block h-full pr-2  float-right">
-                            <img src="https://cdn.discordapp.com/attachments/680350705038393344/717784208075915274/exitment.png">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="flex flex-wrap flex-col-reverse sm:flex-row py-5">
-            <div class="w-full sm:w-1/2 p-4 ">
-                <div class="embed w-full h-full rounded-l border-l-4 pb-4"
-                     style="border-color: #e87e15; background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
-                    <div class="block h-full">
-                        <div class="inline-block h-full">
-                            <div class="flex w-full pl-2 pt-2">
-                                <div class="flex">
-                                    <img src="https://images-ext-1.discordapp.net/external/wxHt-1g-EhLUVIDxlM_TSnlfxCmFpLoMvzxPcAKykPU/%3Fv%3D1/https/cdn.discordapp.com/emojis/676087821596885013.png"
-                                         class="inline-block rounded-full h-12 w-12 p-2">
-                                    <div class="inline-block font-medium p-2 hover:underline cursor-pointer self-center"
-                                         style="font-size: 20px;">
-                                        Crunchyroll Anime News! - Click for more!
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content px-2">
-                                <a class="block font-medium px-4 pl-2">
-                                    <a class="inline-block pl-2 hyper hover:underline cursor-pointer"
-                                       href="https://www.crunchyroll.com/anime-news/2020/06/12/hiro-mashimas-edens-zero-to-get-tv-anime-adaptation">Read
-                                        More</a>
-                                    <p class="inline-block text-white">|</p>
-                                    <a class="inline-block pl-1 hyper hover:underline cursor-pointer"
-                                       href="https://top.gg/bot/656598065532239892/vote">Vote for Crunchy</a>
-                                </a>
-                                <img class="p-2" src="//crunchy-bot.live/data/news/b1p2JiVlbHJ7c0s.png">
-                                <div class="footer">
-                                    <div class="px-2 font-normal" style="color: #46474F;">
-                                        Part of Crunchy, the Crunchyroll bot. Powered by CF8
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap w-full sm:w-1/2 p-6 mt-6">
-                <div class="align-middle self-center">
-                    <h3 class="text-3xl text-white font-bold leading-none mb-3">Live Feeds</h3>
-                    <p class="text-white mb-8 text-lg">
-                        Get live News and Releases from Crunchyroll sent straight to your server with our
-                        unique webhook system, providing a fun and exciting way to get the latest info.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex flex-wrap py-5">
-            <div class="w-5/6 sm:w-1/2 p-6  self-center">
-                <h3 class="text-3xl text-white font-bold leading-none mb-3">Built for a community</h3>
-                <p class="text-white mb-8 text-lg">
-                    Crunchy offers the ability for servers to hold competitions between each other or just
-                    view how much Anime the people in the server are watching thanks to our custom dashboard.
-                </p>
-            </div>
-            <div class="w-full sm:w-1/2 p-4">
-                <img alt="Watchlist Showing" class="rounded-lg"
-                     src="../static/images/home_svgs/undraw_personal_goals_edgd.svg">
-            </div>
-        </div>
-
-        <div class="flex flex-wrap flex-col-reverse sm:flex-row py-5">
-            <div class="w-full sm:w-1/2 p-4 ">
-                <div class="embed w-full h-full rounded-l border-l-4 pb-4"
-                     style="border-color: #e87e15; background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
-                    <div class="block h-full">
-                        <div class="inline-block h-full">
-                            <div class="flex w-full pl-2">
-                                <div class="flex">
-                                    <img src="https://images-ext-1.discordapp.net/external/ipStPVjgzmqg7s_dUIVecKUnGF312l0kM06spDh3ozc/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/290923752475066368/e5c62d816fae546259ff96f819bf3a33.webp"
-                                         class="inline-block rounded-full h-12 w-12 p-2">
-                                    <div class="inline-block font-medium p-2 hover:underline cursor-pointer self-center"
-                                         style="font-size: 20px;">ハーリさん (CF8)'s characters
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content px-2">
-                                <a class="block font-semibold px-2 py-3">
-                                    <p class="inline-block text-white">1 ) - </p>
-                                    <p class="inline-block pl-1">Zero Two</p>
-                                    <p class="inline-block pl-1 font-medium">( Level 4 )</p>
-                                </a>
-                                <a class="block font-semibold px-2 py-3">
-                                    <p class="inline-block text-white">2 ) - </p>
-                                    <p class="inline-block pl-1">Hero</p>
-                                    <p class="inline-block pl-1 font-medium">( Level 1 )</p>
-                                </a>
-                                <a class="block font-semibold px-2 py-3">
-                                    <p class="inline-block text-white">3 ) - </p>
-                                    <p class="inline-block pl-1">Eiichirou Natsuki</p>
-                                    <p class="inline-block pl-1 font-medium">( Level 2 )</p>
-                                </a>
-                                <a class="block font-semibold px-2 pt-3 pb-1">
-                                    <p class="inline-block text-white">4 ) - </p>
-                                    <p class="inline-block pl-1">Hwa Ryun</p>
-                                    <p class="inline-block pl-1 font-medium">( Level 7 )</p>
-                                </a>
-                                <div class="footer">
-                                    <div class="px-2" style="color: #46474F;">Page 1 / 2</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="inline-block h-full pr-2 float-right">
-                            <img src="https://cdn.discordapp.com/emojis/717784139943641088.png?v=1">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-full sm:w-1/2 p-6 mt-6">
-                <div class="align-middle self-center">
-                    <h3 class="text-3xl text-white font-bold leading-none mb-3">Waifu collection, MMO and more!</h3>
-                    <p class="text-white mb-8 text-lg">
-                        Collect Waifus from over 60,000 to choose from!<br>
-                        Level them up by playing mini-games
-                        and raise your power by battling others.<br>
-                        Join forces with other users to create Guilds and battle other teams in legendary events.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex flex-wrap py-5">
-            <div class="w-5/6 sm:w-1/2 p-6 self-center">
-                <h3 class="text-3xl text-white font-bold leading-none mb-3">Lotta Lewds</h3>
-                <p class="text-white mb-8 text-lg">
-                    With Over 24,000 Images available we offer one of the largest NSFW selections available.<br>
-                    NSFW not for you and your server? Dont worry!<br>
-                    You can use the <i>"togglensfw" </i>
-                    command to disable NSFW for your server keeping it family friendly!
-                </p>
-            </div>
-
-            <div class="w-full sm:w-1/2 p-4">
-                <img alt="Watchlist Showing" class="rounded-full w-auto object-cover"
-                     src="../static/images/home_svgs/002_noback_crop.png">
-            </div>
-        </div>
-    </div>
 </section>
 
 
@@ -506,8 +330,7 @@
     </g>
 </svg>
 
-<section class="container mx-auto text-center py-6 mb-12">
-
+<div class="container mx-auto text-center py-6 mb-12">
     <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Get started with Crunchy in your
         server now!</h1>
     <div class="w-full mb-4">
@@ -519,7 +342,7 @@
             Invite Crunchy
         </button>
     </div>
-</section>
+</div>
 
 <!-- Footer Area -->
 <div class="relative -mt-12 lg:-mt-24">
@@ -569,7 +392,23 @@
     </footer>
 </div>
 
-<script src="../static/js/home.js" type="text/javascript"></script>
+<script src="../static/js/dashboard.js" type="text/javascript"></script>
+<script>
+    new Morris.Donut({
+        element: 'stats-chart-1',
+        data: [
+            {label: 'Users using Crunchy', value: 80},
+            {label: 'Users not using Crunchy', value: 20},
+        ],
+        hideHover: 'always',
+        backgroundColor: '#2C2F33',
+        labelColor: '#ffffff',
+        colors: ['#FF7200', '#6600FF'],
+        formatter: function (y, data) {
+            return y + '%'
+        }
+    });
+</script>
 <script>
     var myArea = new Vue({
         el: '#my-area',
