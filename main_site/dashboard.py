@@ -9,6 +9,7 @@ from utils.discord_data import get_info
 async def dashboard_home(request: Request):
     user_token = request.ctx.__dict__['session'].get('token')
     username, user_icon = "Sign in", "../static//images/Discord-Logo-White.svg"
+    logged_in = False
     if user_token:
         if not request.ctx.session.get('user'):
             user = await get_info(request=request)
@@ -17,7 +18,9 @@ async def dashboard_home(request: Request):
             user = request.ctx.session['user']
         user_icon = f'https://cdn.discordapp.com/avatars/{user["id"]}/{user["avatar"]}.png'
         username = user['username']
+        logged_in = True
     context = {
+        'logged_in': logged_in,
         'user': username,
         'icon': user_icon,
         'recent_guilds': [
