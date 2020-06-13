@@ -222,17 +222,14 @@
     <hr class="border-b border-gray-100 opacity-25 my-0 py-0"/>
 </nav>
 
-<section class="pb-2 pt-16" style="background-color: #2C2F33;">
+<section class="pb-2 pt-8" style="background-color: #2C2F33;">
     <div class="container max-w-5xl mx-auto m-8">
-        <h1 class="w-full my-2 text-6xl font-bold leading-tight text-center text-white">
-            Crunchy's Web Dashboard
-        </h1>
-        <div class="w-full mb-4">
-            <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
-        </div>
         <div class="px-2">
             {% if logged_in %}
-                <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Recently Managed</h1>
+                <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Welcome back, {{ user }}!</h1>
+                <div class="w-full mb-4">
+                    <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+                </div>
                 <div class="container mx-auto inline-block">
                     <div class="flex content-start justify-center flex-wrap h-auto">
                         {% for guild in recent_guilds %}
@@ -260,8 +257,10 @@
                     </div>
                 </div>
             {% else %}
-                <div class="py-8"></div>
-                <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Hello There!</h1>
+                <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Hello World!</h1>
+                <div class="w-full mb-4">
+                    <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+                </div>
                 <div class="flex w-full py-4">
                     <div class="flex justify-center w-full">
                         <a class="cursor-pointer transition duration-300 ease-in-out gradient transform hover:scale-110 hover:scale-x-120 text-center text-white font-bold rounded-full px-8 py-4"
