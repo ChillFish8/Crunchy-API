@@ -32,7 +32,7 @@ async def dashboard_home(request: Request):
                 'url': 'https://cdn.discordapp.com/icons/267624335836053506/a_0409ea649c9eb2aaaf3a5531a80a2528.webp?size=256',
                 'name': "Python"
             }
-        ]
+        ],
     }
     resp = jinja2_sanic.render_template("templates.dashboard_home", request, context)
     resp.headers['Access-Control-Allow-Origin'] = '*'
