@@ -268,7 +268,8 @@
                             Sign in to manage your servers.
                         </a>
                         <div class="px-4"></div>
-                        <a class="cursor-pointer transition duration-300 ease-in-out gradient transform hover:scale-110 hover:scale-x-120 text-center text-white font-bold rounded-full px-4 py-2">
+                        <a id="scroll-to-show"
+                           class="cursor-pointer transition duration-300 ease-in-out gradient transform hover:scale-110 hover:scale-x-120 text-center text-white font-bold rounded-full px-4 py-2">
                             Just Browsing? Take a look bellow
                         </a>
                     </div>
@@ -286,24 +287,6 @@
 
     </path>
 </svg>
-<div class="pb-10">
-    <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-        <div class="w-full flex flex-wrap w-full pb-16">
-            <div class="flex justify-around self-center w-full h-auto">
-                <div class="self-center text-center px-4 py-2 m-2">
-                    <h1 class="text-5xl font-semibold">Crunchy's Uptime and Status</h1>
-                    <div class="w-full mb-4">
-                        <div class="h-1 mx-auto w-96 opacity-100 my-0 py-1 rounded-full"
-                             style="background-color: #2C2F33"></div>
-                    </div>
-                </div>
-                <div class="rounded-full" id="stats-chart-1"
-                     style="height: 400px;width: 400px;background: #2C2F33;"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- Wave TOP svg -->
 <div class="relative -mt-12 lg:-mt-24">
@@ -315,7 +298,20 @@
 
 <!-- Section 2 Middle -->
 <section class="py-5" style="background-color: #2C2F33;">
-
+    <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+        <div class="w-full flex flex-wrap w-full pb-16">
+            <div class="flex justify-around self-center w-full h-auto">
+                <div class="self-center text-center px-4 py-2 m-2">
+                    <h1 class="text-5xl font-semibold">Crunchy's Uptime and Status</h1>
+                    <div class="w-full mb-4">
+                        <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+                    </div>
+                </div>
+                <div class="rounded-full" id="stats-chart-1"
+                     style="height: 400px;width: 400px;background: #2C2F33;"></div>
+            </div>
+        </div>
+    </div>
 </section>
 
 
@@ -341,11 +337,9 @@
 </svg>
 
 <div class="container mx-auto text-center py-6 mb-12">
-    <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Get started with Crunchy in your
-        server now!</h1>
-    <div class="w-full mb-4">
-        <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
-    </div>
+    <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
+        Get started with Crunchy in your server now!
+    </h1>
     <div class="space-x-4">
         <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-4 py-4 px-8 shadow-lg"
                 onclick="window.location.href='https://discordapp.com/oauth2/authorize?client_id=656598065532239892&scope=bot&permissions=1678109696';">
@@ -438,6 +432,13 @@
             isVisible: false
         }
     })
+
+    const scrollButton = document.getElementById('scroll-to-show');
+
+    scrollButton.addEventListener('click', () => window.scrollTo({
+        top: 500,
+        behavior: 'smooth',
+    }));
 </script>
 </body>
 </html>
