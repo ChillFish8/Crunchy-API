@@ -236,7 +236,7 @@
                 <div class="container mx-auto inline-block">
                     <div class="flex content-start justify-center flex-wrap h-auto">
                         {% for guild in recent_guilds %}
-                            <div class="inline-block sm:w-1 md:w-1/2 lg:w-1/3 p-2 px-4">
+                            <div class="inline-block sm:w-1 md:w-1/2 lg:w-1/3 p-2 px-4 cursor-pointer hover:underline">
                                 <div class="p-5 shadow"
                                      style="background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
                                     <div class="flex contents-start">
@@ -260,16 +260,17 @@
                     </div>
                 </div>
             {% else %}
+                <div class="py-8"></div>
                 <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">Hello There!</h1>
                 <div class="flex w-full py-4">
                     <div class="flex justify-center w-full">
-                        <a class="cursor-pointer transition duration-300 ease-in-out gradient transform hover:scale-110 hover:scale-x-120 text-center text-white font-bold rounded-full px-4 py-2"
+                        <a class="cursor-pointer transition duration-300 ease-in-out gradient transform hover:scale-110 hover:scale-x-120 text-center text-white font-bold rounded-full px-8 py-4"
                            href="../login">
                             Sign in to manage your servers.
                         </a>
                         <div class="px-4"></div>
                         <a id="scroll-to-show"
-                           class="cursor-pointer transition duration-300 ease-in-out gradient transform hover:scale-110 hover:scale-x-120 text-center text-white font-bold rounded-full px-4 py-2">
+                           class="cursor-pointer transition duration-300 ease-in-out gradient transform hover:scale-110 hover:scale-x-120 text-center text-white font-bold rounded-full px-8 py-4">
                             Just Browsing? Take a look bellow
                         </a>
                     </div>
@@ -288,6 +289,32 @@
     </path>
 </svg>
 
+<section>
+    <div class="container max-w-5xl mx-auto m-8">
+        <div class="flex flex-wrap py-5">
+            <div class="w-5/6 sm:w-1/2 p-6 self-center">
+
+            </div>
+
+            <div class="w-full sm:w-1/2 p-4">
+
+            </div>
+        </div>
+
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row py-5">
+            <div class="w-full sm:w-1/2 p-4 ">
+
+            </div>
+
+            <div class="flex flex-wrap w-full sm:w-1/2 p-6 mt-6">
+                <div class="align-middle self-center">
+
+                </div>
+            </div>
+        </div>
+</section>
+
 <!-- Wave TOP svg -->
 <div class="relative -mt-12 lg:-mt-24">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -297,13 +324,36 @@
 </div>
 
 <!-- Section 2 Middle -->
-<section class="py-5" style="background-color: #2C2F33;">
+<section class="not-quite-dark py-4">
+    <div class="container max-w-5xl mx-auto m-8">
 
+        <div class="flex flex-wrap py-5">
+            <div class="w-5/6 sm:w-1/2 p-6 self-center">
+
+            </div>
+
+            <div class="w-full sm:w-1/2 p-4">
+
+            </div>
+        </div>
+
+
+        <div class="flex flex-wrap flex-col-reverse sm:flex-row py-5">
+            <div class="w-full sm:w-1/2 p-4 ">
+
+            </div>
+
+            <div class="flex flex-wrap w-full sm:w-1/2 p-6 mt-6">
+                <div class="align-middle self-center">
+
+                </div>
+            </div>
+        </div>
 </section>
 
 
 <!-- wave BOTTOM svg -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 350">
     <path fill="#2C2F33" fill-opacity="1"
           d="M0,256L13.3,229.3C26.7,203,53,149,80,133.3C106.7,117,133,139,160,133.3C186.7,128,213,96,240,122.7C266.7,149,293,235,320,240C346.7,245,373,171,400,165.3C426.7,160,453,224,480,256C506.7,288,533,288,560,272C586.7,256,613,224,640,202.7C666.7,181,693,171,720,160C746.7,149,773,139,800,154.7C826.7,171,853,213,880,224C906.7,235,933,213,960,186.7C986.7,160,1013,128,1040,133.3C1066.7,139,1093,181,1120,213.3C1146.7,245,1173,267,1200,245.3C1226.7,224,1253,160,1280,128C1306.7,96,1333,96,1360,90.7C1386.7,85,1413,75,1427,69.3L1440,64L1440,0L1426.7,0C1413.3,0,1387,0,1360,0C1333.3,0,1307,0,1280,0C1253.3,0,1227,0,1200,0C1173.3,0,1147,0,1120,0C1093.3,0,1067,0,1040,0C1013.3,0,987,0,960,0C933.3,0,907,0,880,0C853.3,0,827,0,800,0C773.3,0,747,0,720,0C693.3,0,667,0,640,0C613.3,0,587,0,560,0C533.3,0,507,0,480,0C453.3,0,427,0,400,0C373.3,0,347,0,320,0C293.3,0,267,0,240,0C213.3,0,187,0,160,0C133.3,0,107,0,80,0C53.3,0,27,0,13,0L0,0Z"></path>
 </svg>
@@ -395,7 +445,7 @@
     const scrollButton = document.getElementById('scroll-to-show');
 
     scrollButton.addEventListener('click', () => window.scrollTo({
-        top: 500,
+        top: 775,
         behavior: 'smooth',
     }));
 </script>
