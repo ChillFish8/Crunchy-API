@@ -242,7 +242,8 @@
         <div class="container mx-auto inline-block">
             <div class="flex content-start justify-center flex-wrap h-auto">
                 {% for guild in all_guilds %}
-                    <div class="inline-block sm:w-1 md:w-1/2 p-2 px-4 cursor-pointer hover:underline">
+                    <div class="inline-block sm:w-1 md:w-1/2 p-2 px-4 cursor-pointer hover:underline"
+                         onclick="window.location.href = String('../server/' + {{ guild.id }});">
                         <div class="p-5"
                              style="background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
                             <div class="flex contents-start">

@@ -1,4 +1,5 @@
 import jinja2_sanic
+from sanic import response
 from sanic.request import Request
 
 from globals import Globals
@@ -8,21 +9,46 @@ from sanic_oauth.core import UserInfo
 
 app = Globals.app
 
+UNAUTHORIZED = """<h1>⚠️ 403 — Unauthorized</h1><p>Requested URL {url} unauthorized</p>"""
+
+
+async def check_perms(guilds, user_id):
+    def check(guild):
+        return guild
+
+    return list(filter(check, guilds))
+
+
+async def check_auth(guilds, guild_id):
+    for guild in guilds:
+        if int(guild['id']) == guild_id:
+            return guild
+    else:
+        return False
+
+
+async def get_guild(guilds, guild_id):
+    for guild in guilds:
+        if int(guild['id']) == guild_id:
+            return guild
+
 
 @app.route("/dashboard/main", methods=['GET'])
 @login_required(provider="discord")
 async def dashboard_home(request: Request, user_info: UserInfo):
     user_info = user_info.__dict__
-
     user_icon = f'https://cdn.discordapp.com/avatars/{user_info["id"]}/{user_info["avatar"]}.png'
     username = user_info['username']
 
-    user, guilds = await fetch_user_guilds(request, provider="discord",
-                                           oauth_endpoint_path="https://discord.com/api/users/@me/guilds")
+    _, guilds = await fetch_user_guilds(request, provider="discord",
+                                        oauth_endpoint_path="https://discord.com/api/users/@me/guilds")
+    guilds = await check_perms(guilds, user_info['id'])
+
     guild_data = []
     for guild in guilds[:5]:
         guild_data.append(
             {
+                'id': guild['id'],
                 'name': guild['name'],
                 'url': f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.webp?size=256'
             }
@@ -34,6 +60,31 @@ async def dashboard_home(request: Request, user_info: UserInfo):
         'recent_guilds': guild_data[:2],
         'all_guilds': guild_data,
 
+    }
+    resp = jinja2_sanic.render_template("templates.dashboard_home", request, context)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
+@app.route("/server/<server_id:int>", methods=['GET'])
+@login_required(provider="discord")
+async def server(request: Request, user_info: UserInfo, server_id):
+    user_info = user_info.__dict__
+    _, guilds = await fetch_user_guilds(
+        request=request,
+        provider="discord",
+        oauth_endpoint_path="https://discord.com/api/users/@me/guilds")
+    auth = await check_auth(guilds, server_id)
+    if not auth:
+        return response.html(status=403, body=UNAUTHORIZED.format(url=f"/server/{server_id}"))
+    guilds = await check_perms(guilds, user_info['id'])
+    guild = await get_guild(guilds, server_id)
+
+    context = {
+        'logged_in': True,
+        'user': user_info['username'],
+        'icon': user_info['icon'],
+        'guild': guild,
     }
     resp = jinja2_sanic.render_template("templates.dashboard_home", request, context)
     resp.headers['Access-Control-Allow-Origin'] = '*'
