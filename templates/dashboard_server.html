@@ -198,8 +198,11 @@
     </svg>
 </div>
 
-<section>
-
+<section class="w-full h-auto">
+    <div class="flex flex-wrap justify-center w-full h-full">
+        <img class="w-auto h-48 object-fit rounded-full self-center p-4" src="{{ guild.icon }}" alt="{{ guild.name }}">
+        <h1 class="self-center text-2xl font-semibold">{{ guild.name }} ({{ guild.id }})</h1>
+    </div>
 </section>
 
 

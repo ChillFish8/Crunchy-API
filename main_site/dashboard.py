@@ -21,7 +21,6 @@ async def check_perms(guilds, user_id):
 
 async def check_auth(guilds, guild_id):
     for guild in guilds:
-        print(guild['name'], guild['id'])
         if int(guild['id']) == guild_id:
             return guild
     else:
@@ -85,6 +84,11 @@ async def server(request: Request, user_info: UserInfo, server_id):
         return response.html(status=403, body=UNAUTHORIZED.format(url=f"/server/{server_id}"))
     guilds = await check_perms(guilds, user_info['id'])
     guild = await get_guild(guilds, server_id)
+    guild = {
+        'id': guild['id'],
+        'name': guild['name'],
+        'icon': f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.webp?size=256',
+    }
 
     context = {
         'logged_in': True,
