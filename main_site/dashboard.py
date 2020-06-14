@@ -53,7 +53,7 @@ async def dashboard_home(request: Request, user_info: UserInfo):
                 'id': guild['id'],
                 'name': guild['name'],
                 'url': f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.webp?size=256',
-                'href': f"../server/{guild['id']}"
+                'href': f"'../server/{guild['id']}'"
             }
         )
     context = {
@@ -73,6 +73,9 @@ async def dashboard_home(request: Request, user_info: UserInfo):
 @login_required(provider="discord")
 async def server(request: Request, user_info: UserInfo, server_id):
     user_info = user_info.__dict__
+    user_icon = f'https://cdn.discordapp.com/avatars/{user_info["id"]}/{user_info["avatar"]}.png'
+    username = user_info['username']
+
     _, guilds = await fetch_user_guilds(
         request=request,
         provider="discord",
@@ -82,11 +85,11 @@ async def server(request: Request, user_info: UserInfo, server_id):
         return response.html(status=403, body=UNAUTHORIZED.format(url=f"/server/{server_id}"))
     guilds = await check_perms(guilds, user_info['id'])
     guild = await get_guild(guilds, server_id)
-    print(user_info)
+
     context = {
         'logged_in': True,
-        'user': user_info['username'],
-        'icon': user_info['avatar'],
+        'user': username,
+        'icon': user_icon,
         'guild': guild,
     }
     resp = jinja2_sanic.render_template("templates.dashboard_server", request, context)
