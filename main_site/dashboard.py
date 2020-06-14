@@ -21,6 +21,7 @@ async def check_perms(guilds, user_id):
 
 async def check_auth(guilds, guild_id):
     for guild in guilds:
+        print(guild['name'], guild['id'])
         if int(guild['id']) == guild_id:
             return guild
     else:
@@ -86,6 +87,6 @@ async def server(request: Request, user_info: UserInfo, server_id):
         'icon': user_info['icon'],
         'guild': guild,
     }
-    resp = jinja2_sanic.render_template("templates.dashboard_home", request, context)
+    resp = jinja2_sanic.render_template("templates.dashboard_server", request, context)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
