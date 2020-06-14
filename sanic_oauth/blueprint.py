@@ -72,6 +72,8 @@ async def oauth(request: Request) -> HTTPResponse:
 async def fetch_user_info(request, provider, oauth_endpoint_path, local_email_regex) -> UserInfo:
     try:
         user_info = request.ctx.__dict__['session']['user_info']
+        if isinstance(user_info, UserInfo):
+            return user_info
         user = UserInfo(**user_info)
     except KeyError:
         factory_args = {'access_token': request.ctx.__dict__['session']['token']}
