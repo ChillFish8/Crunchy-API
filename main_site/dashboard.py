@@ -20,7 +20,7 @@ async def dashboard_home(request: Request, user_info: UserInfo):
     user, guilds = await fetch_user_guilds(request, provider="discord",
                                            oauth_endpoint_path="https://discord.com/api/users/@me/guilds")
     guild_data = []
-    for guild in guilds:
+    for guild in guilds[:5]:
         guild_data.append(
             {
                 'name': guild['name'],
@@ -31,7 +31,9 @@ async def dashboard_home(request: Request, user_info: UserInfo):
         'logged_in': True,
         'user': username,
         'icon': user_icon,
-        'recent_guilds': guild_data,
+        'recent_guilds': guild_data[:2],
+        'all_guilds': guild_data,
+
     }
     resp = jinja2_sanic.render_template("templates.dashboard_home", request, context)
     resp.headers['Access-Control-Allow-Origin'] = '*'
