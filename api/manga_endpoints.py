@@ -1,11 +1,11 @@
 import asyncio
 
-from flisk import views
 from sanic import response
 
-from api.database import static
-from api.database.manga import MangaApi
-from api.database.static import pool
+from database import static
+from database.manga import MangaApi
+from database.static import pool
+from flisk import views
 
 manga_info = MangaApi(static.db)
 

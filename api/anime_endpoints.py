@@ -1,11 +1,11 @@
 import asyncio
 
-from flisk import views
 from sanic import response
 
-from api.database import static
-from api.database.anime import AnimeApi, AnimeApiLegacy
-from api.database.static import pool
+from database import static
+from database.anime import AnimeApi, AnimeApiLegacy
+from database.static import pool
+from flisk import views
 
 anime_info = AnimeApi(static.db)
 anime_info_legacy = AnimeApiLegacy(static.db)

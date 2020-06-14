@@ -1,5 +1,6 @@
-import pymongo
 import json
+
+import pymongo
 
 
 class MongoDatabase:

@@ -1,6 +1,7 @@
 import pymongo
 
-from api.database.static import MongoDatabase
+from database.static import MongoDatabase
+
 
 class AnimeApiLegacy:
     def __init__(self, mongo_client: MongoDatabase):
