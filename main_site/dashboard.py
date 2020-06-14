@@ -1,26 +1,21 @@
 import jinja2_sanic
 from sanic.request import Request
 
-from flisk import views
-from utils.discord_data import get_info
+from globals import Globals
+from sanic_oauth.blueprint import login_required
+from sanic_oauth.core import UserInfo
+
+app = Globals.app
 
 
-@views.register_path(name="dashboard/main", methods=['GET'])
-async def dashboard_home(request: Request):
-    user_token = request.ctx.__dict__['session'].get('token')
-    username, user_icon = "Sign in", "../static//images/Discord-Logo-White.svg"
-    logged_in = False
-    if user_token:
-        if not request.ctx.session.get('user'):
-            user = await get_info(request=request)
-            request.ctx.session['user'] = user
-        else:
-            user = request.ctx.session['user']
-        user_icon = f'https://cdn.discordapp.com/avatars/{user["id"]}/{user["avatar"]}.png'
-        username = user['username']
-        logged_in = True
+@app.route("/dashboard/main", methods=['GET'])
+@login_required(provider="discord")
+async def dashboard_home(request: Request, user_info: UserInfo):
+    user_info = user_info.__dict__
+    user_icon = f'https://cdn.discordapp.com/avatars/{user_info["id"]}/{user_info["avatar"]}.png'
+    username = user_info['username']
     context = {
-        'logged_in': logged_in,
+        'logged_in': True,
         'user': username,
         'icon': user_icon,
         'recent_guilds': [
