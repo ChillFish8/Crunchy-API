@@ -69,13 +69,13 @@ async def oauth(request: Request) -> HTTPResponse:
                                                         use_after_auth_default_redirect))
 
 
-async def fetch_user_info(request, provider, oauth_endpoint_path, local_email_regex) -> UserInfo:
+async def fetch_user_info(request, provider, oauth_endpoint_path, *args, **kwargs) -> UserInfo:
     try:
         user_info = request.ctx.__dict__['session']['user_info']
         if isinstance(user_info, UserInfo):
             return user_info
         user = UserInfo(**user_info)
-    except KeyError:
+    except (KeyError, TypeError):
         factory_args = {'access_token': request.ctx.__dict__['session']['token']}
         oauth_provider = request.ctx.__dict__['session'].get('oauth_provider', provider)
         if oauth_provider:
@@ -86,10 +86,6 @@ async def fetch_user_info(request, provider, oauth_endpoint_path, local_email_re
         except (KeyError, HTTPBadRequest) as exc:
             _log.exception(exc)
             return redirect(oauth_endpoint_path)
-
-        if local_email_regex and user.email:
-            if not local_email_regex.match(user.email):
-                return redirect(oauth_endpoint_path)
         request.ctx.__dict__['session']['user_info'] = user
     return user
 
@@ -101,9 +97,9 @@ async def fetch_user_guilds(request, provider, oauth_endpoint_path) -> tuple:
         factory_args['provider'] = provider
     client = request.app.oauth_factory(**factory_args)
     try:
-        user, _info = await client.user_info(guild_url=oauth_endpoint_path)
-        request.ctx.__dict__['session']['user_info'] = user
-        return user, _info
+        blank, _info = await client.user_info(guild_url=oauth_endpoint_path)
+        request.ctx.__dict__['session']['user_info'] = blank
+        return blank, _info
     except (KeyError, HTTPBadRequest) as exc:
         _log.exception(exc)
         return redirect(oauth_endpoint_path)
