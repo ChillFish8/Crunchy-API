@@ -53,7 +53,7 @@ async def dashboard_home(request: Request, user_info: UserInfo):
                 'id': guild['id'],
                 'name': guild['name'],
                 'url': f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.webp?size=256',
-                'href': f"../static/{guild['id']}"
+                'href': f"../server/{guild['id']}"
             }
         )
     context = {
