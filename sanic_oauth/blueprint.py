@@ -94,23 +94,19 @@ async def fetch_user_info(request, provider, oauth_endpoint_path, local_email_re
     return user
 
 
-async def fetch_user_guilds(request, provider, oauth_endpoint_path, local_email_regex) -> UserInfo:
+async def fetch_user_guilds(request, provider, oauth_endpoint_path) -> tuple:
+    factory_args = {'access_token': request.ctx.__dict__['session']['token']}
+    oauth_provider = request.ctx.__dict__['session'].get('oauth_provider', provider)
+    if oauth_provider:
+        factory_args['provider'] = provider
+    client = request.app.oauth_factory(**factory_args)
     try:
-        user_info = request.ctx.__dict__['session']['user_info']
-        user = UserInfo(**user_info)
-    except (KeyError, TypeError):
-        factory_args = {'access_token': request.ctx.__dict__['session']['token']}
-        oauth_provider = request.ctx.__dict__['session'].get('oauth_provider', provider)
-        if oauth_provider:
-            factory_args['provider'] = provider
-        client = request.app.oauth_factory(**factory_args)
-        try:
-            user, _info = await client.user_info(guild_url=oauth_endpoint_path)
-        except (KeyError, HTTPBadRequest) as exc:
-            _log.exception(exc)
-            return redirect(oauth_endpoint_path)
+        user, _info = await client.user_info(guild_url=oauth_endpoint_path)
         request.ctx.__dict__['session']['user_info'] = user
-    return user, _info
+        return user, _info
+    except (KeyError, HTTPBadRequest) as exc:
+        _log.exception(exc)
+        return redirect(oauth_endpoint_path)
 
 
 def login_required(async_handler=None, provider=None, add_user_info=True, email_regex=None):
