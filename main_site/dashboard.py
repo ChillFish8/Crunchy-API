@@ -88,6 +88,11 @@ async def server(request: Request, user_info: UserInfo, server_id):
         'id': guild['id'],
         'name': guild['name'],
         'icon': f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.webp?size=256',
+        'prefix': '?',
+        'premium': False,
+        'nsfw': True,
+        'release_hook': None,
+        'news_hook': None
     }
 
     context = {

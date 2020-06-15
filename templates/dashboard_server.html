@@ -242,6 +242,104 @@
         <div class="flex flex-wrap py-5 not-quite-dark large-outline rounded-md">
             <div class="w-5/6 sm:w-1/2 p-6 self-center">
                 <h3 class="cursor-default text-3xl text-white font-bold text-center leading-none mb-3">
+                    General Settings
+                </h3>
+                <div class="block w-full mb-4">
+                    <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+                </div>
+                <div class="flex mb-8 justify-around">
+                    <div class="w-full max-w-xs float-left">
+                        <form class="px-8 pt-6 pb-8 mb-4" method="post">
+                            <div class="mb-4">
+                                <label class="block text-white text-medium font-bold mb-2" for="news">
+                                    Bot Prefix
+                                </label>
+                                <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
+                                       id="news" type="text" placeholder="{{ guild.prefix }}" maxlength="10">
+                            </div>
+                            <div class="mb-6">
+                                <input class="items-center" type="checkbox" id="nsfw" name="nsfw_enabled" value="nsfw">
+                                <label for="nsfw" class="text-white text-medium font-bold mb-2">NSFW Enabled</label><br>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <input class="cursor-pointer gradient hover:shadow-lg hover:opacity-75 text-white font-bold py-1 px-4 rounded"
+                                       type="submit" value="Confirm">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full sm:w-1/2 p-4">
+                <div class="embed w-full h-full rounded-md border-l-4 pb-4 large-outline"
+                     style="border-color: #e87e15; background-color: #23272A;">
+                    <div class="block h-full">
+                        <div class="embed w-full h-5/6"
+                             style="border-color: #e87e15;">
+                            <div class="flex h-full justify-between">
+                                <div class="h-full w-3/4">
+                                    <div class="flex w-full pl-2">
+                                        <div class="flex py-2">
+                                            <img src="https://cdn.discordapp.com/icons/675647130647658527/61515ba4de15b723324b5d7cb8754ed1.webp?size=1024"
+                                                 class="inline-block rounded-full h-12 w-12 p-2">
+                                            <div class="inline-block font-medium p-2 hover:underline cursor-pointer self-center"
+                                                 style="font-size: 20px;">Crunchy's Room's Server Settings:
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="content px-2">
+                                        <a class="block font-semibold px-2 py-3">
+                                            <p class="underline font-semibold text-xl">Server Info</p>
+                                            <div class="flex items-center">
+                                                <h1 class="pr-2 font-medium">Name:</h1>
+                                                <p class="text-white font-medium px-1 rounded-md"
+                                                   style="background-color: #161718">{{ guild.name }}</p>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <h1 class="pr-2 font-medium">Guild Id:</h1>
+                                                <p class="text-white font-medium px-1 rounded-md"
+                                                   style="background-color: #161718">{{ guild.id }}</p>
+                                            </div>
+                                        </a>
+                                        <a class="block font-semibold px-2 py-3">
+                                            <p class="underline font-semibold text-xl">Server Settings</p>
+                                            <div class="flex items-center">
+                                                <h1 class="pr-2 font-medium">Prefix:</h1>
+                                                <p class="text-white font-medium px-1 rounded-md"
+                                                   style="background-color: #161718">{{ guild.prefix }}</p>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <h1 class="pr-2 font-medium">Premium:</h1>
+                                                <p class="text-white font-medium px-1 rounded-md"
+                                                   style="background-color: #161718">{{ guild.premium }}</p>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <h1 class="pr-2 font-medium">NSFW:</h1>
+                                                <p class="text-white font-medium px-1 rounded-md"
+                                                   style="background-color: #161718">{{ guild.nsfw }}</p>
+                                            </div>
+                                        </a>
+                                        <div class="footer items-baseline">
+                                            <div class="px-2" style="color: #46474F;">Part of Crunchy. Powered by CF8
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="h-full w-1/4 pr-2 pt-2">
+                                    <img src="https://cdn.discordapp.com/icons/675647130647658527/61515ba4de15b723324b5d7cb8754ed1.webp">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="py-4"></div>
+
+        <div class="flex flex-wrap py-5 not-quite-dark large-outline rounded-md">
+            <div class="w-5/6 sm:w-1/2 p-6 self-center">
+                <h3 class="cursor-default text-3xl text-white font-bold text-center leading-none mb-3">
                     Webhook Settings
                 </h3>
                 <div class="block w-full mb-4">
@@ -251,21 +349,21 @@
                     <div class="w-full max-w-xs float-left">
                         <form class="px-8 pt-6 pb-8 mb-4" method="post">
                             <div class="mb-4">
-                                <label class="block text-white text-medium font-bold mb-2" for="News Webhook">
+                                <label class="block text-white text-medium font-bold mb-2" for="news">
                                     News Webhook
                                 </label>
-                                <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-black leading-tight placeholder-gray-200"
+                                <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
                                        id="news" type="text" placeholder="{{ guild.news_hook }}">
                             </div>
                             <div class="mb-6">
-                                <label class="block text-white text-medium font-bold mb-2" for="Release Webhook">
+                                <label class="block text-white text-medium font-bold mb-2" for="release">
                                     Release Webhook
                                 </label>
-                                <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-black0 leading-tight placeholder-gray-200"
+                                <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
                                        id="release" type="text" placeholder="{{ guild.release_hook }}">
                             </div>
                             <div class="flex items-center justify-between">
-                                <input class="cursor-click bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+                                <input class="cursor-pointer gradient hover:shadow-lg hover:opacity-75 text-white font-bold py-1 px-4 rounded"
                                        type="submit" value="Confirm">
                             </div>
                         </form>
