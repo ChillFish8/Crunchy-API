@@ -36,8 +36,8 @@ class GuildDatabase:
         self.guild_webhooks: pymongo.collection.Collection = self.db['webhooks']
 
     async def process_server_post(self, guild_id, post_data):
-        if post_data.keys()
-
+        print(post_data.keys())
+        return
         if (post_data.get('news_hook', ['None'])[0] != "None") and \
                 (post_data.get('release_hook', ['None'])[0] != "None"):
             return

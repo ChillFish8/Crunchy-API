@@ -120,7 +120,7 @@ async def post_server_update(request: Request, user_info: UserInfo, server_id: i
     guilds = await check_perms(guilds, user_info['id'])
     guild = await get_guild(guilds, server_id)
 
-    await database.update_webhook(guild_id=int(guild['id']), post_data=request.form)
+    await database.process_server_post(guild_id=int(guild['id']), post_data=request.form)
 
     context = {
         'logged_in': True,
