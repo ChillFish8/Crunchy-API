@@ -249,13 +249,14 @@
                 </div>
                 <div class="flex mb-8 justify-around">
                     <div class="w-full max-w-xs float-left">
-                        <form class="px-8 pt-6 pb-8 mb-4" method="post">
+                        <form class="px-8 pt-6 pb-8 mb-4" method="post" action="../server/{{ guild.id }}">
                             <div class="mb-4">
-                                <label class="block text-white text-medium font-bold mb-2" for="news">
+                                <label class="block text-white text-medium font-bold mb-2" for="bot_prefix">
                                     Bot Prefix
                                 </label>
                                 <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
-                                       id="news" type="text" value="{{ guild.prefix }}" maxlength="10">
+                                       name="bot_prefix"
+                                       id="bot_prefix" type="text" value="{{ guild.prefix }}" maxlength="10">
                             </div>
                             <div class="mb-6">
                                 {% if guild.nsfw %}
@@ -353,20 +354,20 @@
                 </div>
                 <div class="flex mb-8 justify-around">
                     <div class="w-full max-w-xs float-left">
-                        <form class="px-8 pt-6 pb-8 mb-4" method="post">
+                        <form class="px-8 pt-6 pb-8 mb-4" method="post" action="../server/{{ guild.id }}">
                             <div class="mb-4">
                                 <label class="block text-white text-medium font-bold mb-2" for="news">
                                     News Webhook
                                 </label>
                                 <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
-                                       id="news" type="text" value="{{ guild.news_hook }}">
+                                       id="news" type="text" value="{{ guild.news_hook }}" name="news_hook">
                             </div>
                             <div class="mb-6">
                                 <label class="block text-white text-medium font-bold mb-2" for="release">
                                     Release Webhook
                                 </label>
                                 <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
-                                       id="release" type="text" value="{{ guild.release_hook }}">
+                                       id="release" type="text" value="{{ guild.release_hook }}" name="release_hook">
                             </div>
                             <div class="flex items-center justify-between">
                                 <input class="cursor-pointer gradient hover:shadow-lg hover:opacity-75 text-white font-bold py-1 px-4 rounded"

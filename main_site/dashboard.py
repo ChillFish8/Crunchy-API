@@ -30,6 +30,16 @@ async def check_auth(guilds, guild_id):
 async def get_guild(guilds, guild_id):
     for guild in guilds:
         if int(guild['id']) == guild_id:
+            guild = {
+                'id': guild['id'],
+                'name': guild['name'],
+                'icon': f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.webp?size=256',
+                'prefix': '?',
+                'premium': False,
+                'nsfw': True,
+                'release_hook': None,
+                'news_hook': None
+            }
             return guild
 
 
@@ -46,7 +56,6 @@ async def dashboard_home(request: Request, user_info: UserInfo):
 
     guild_data = []
     for guild in guilds[:5]:
-        print(guild['name'], guild['id'])
         guild_data.append(
             {
                 'id': guild['id'],
@@ -68,9 +77,7 @@ async def dashboard_home(request: Request, user_info: UserInfo):
     return resp
 
 
-@app.route("/server/<server_id:int>", methods=['GET'])
-@login_required(provider="discord")
-async def server(request: Request, user_info: UserInfo, server_id):
+async def get_server_request(request: Request, user_info: UserInfo, server_id: int):
     user_info = user_info.__dict__
     user_icon = f'https://cdn.discordapp.com/avatars/{user_info["id"]}/{user_info["avatar"]}.png'
     username = user_info['username']
@@ -84,16 +91,6 @@ async def server(request: Request, user_info: UserInfo, server_id):
         return response.html(status=403, body=UNAUTHORIZED.format(url=f"/server/{server_id}"))
     guilds = await check_perms(guilds, user_info['id'])
     guild = await get_guild(guilds, server_id)
-    guild = {
-        'id': guild['id'],
-        'name': guild['name'],
-        'icon': f'https://cdn.discordapp.com/icons/{guild["id"]}/{guild["icon"]}.webp?size=256',
-        'prefix': '?',
-        'premium': False,
-        'nsfw': True,
-        'release_hook': None,
-        'news_hook': None
-    }
 
     context = {
         'logged_in': True,
@@ -104,3 +101,16 @@ async def server(request: Request, user_info: UserInfo, server_id):
     resp = jinja2_sanic.render_template("templates.dashboard_server", request, context)
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
+
+
+async def post_server_update(request: Request, user_info: UserInfo, server_id: int):
+
+
+
+@app.route("/server/<server_id:int>", methods=['GET', 'POST'])
+@login_required(provider="discord")
+async def server(request: Request, user_info: UserInfo, server_id):
+    if request.method == "GET":
+        return await get_server_request(request, user_info, server_id)
+    elif request.method == "POST":
+        return await post_server_update(request, user_info, server_id)

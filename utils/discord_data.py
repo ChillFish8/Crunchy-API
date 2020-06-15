@@ -14,6 +14,5 @@ async def get_guilds(request):
     guilds = await fetch_user_guilds(
         request,
         provider='default',
-        oauth_endpoint_path="https://discord.com/api/users/@me/guilds",
-        local_email_regex=request.app.config.OAUTH_EMAIL_REGEX)
+        oauth_endpoint_path="https://discord.com/api/users/@me/guilds", )
     return guilds
