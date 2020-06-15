@@ -24,9 +24,25 @@ class GuildWebhook:
     def export(self):
         return {'_id': f"{self.guild_id}"}, \
                {'config': {
-                   'user_id': self.guild_id,
+                   'guild_id': self.guild_id,
                    'news': self.news_hook,
                    'release': self.release_hook}}
+
+
+class GuildSettings:
+    def __init__(self, guild_id, **kwargs):
+        self.guild_id = guild_id
+        for key, value in kwargs.values():
+            setattr(self, key, value)
+        self.data = kwargs
+
+    @property
+    def export(self):
+        return {'_id': f"{self.guild_id}"}, \
+               {'config': {
+                   'guild_id': self.guild_id,
+                   **self.data
+               }}
 
 
 class GuildDatabase:
@@ -35,15 +51,19 @@ class GuildDatabase:
         self.guild_settings: pymongo.collection.Collection = self.db['guilds']
         self.guild_webhooks: pymongo.collection.Collection = self.db['webhooks']
 
-    async def process_server_post(self, guild_id, post_data):
+    async def process_server_post(self, guild_id, post_data, existing_data):
         if any(['news_hook' in list(post_data.keys()), 'release_hook' in list(post_data.keys())]):
             if (post_data.get('news_hook', ['None'])[0] != "None") and \
                     (post_data.get('release_hook', ['None'])[0] != "None"):
-                return await self.update_webhook(guild_id, post_data)
+                if (post_data.get('news_hook') != existing_data['news_hook']) or \
+                        (post_data.get('release_hook') != existing_data['release_hook']):
+                    return await self.update_guild_settings(guild_id, post_data)
             else:
                 return
         elif any(['bot_prefix' in list(post_data.keys()), 'nsfw_enabled' in list(post_data.keys())]):
-            return await self.update_guild_settings(guild_id, post_data)
+            if (post_data.get('bot_prefix') != existing_data['prefix']) or \
+                    (post_data.get('nsfw_enabled') != existing_data['nsfw']):
+                return await self.update_guild_settings(guild_id, post_data)
 
     async def update_webhook(self, guild_id, post_data):
         data = {
@@ -66,10 +86,10 @@ class GuildDatabase:
 
     async def update_guild_settings(self, guild_id, post_data):
         data = {
-            'news_hook': post_data['news_hook'][0],
-            'release_hook': post_data['release_hook'][0],
+            'prefix': post_data['bot_prefix'][0],
+            'nsfw_enabled': post_data['nsfw_enabled'][0],
         }
-        hook = GuildWebhook(guild_id, **data)
+        hook = GuildSettings(guild_id, **data)
         query, data = hook.export
         existing = self.guild_webhooks.find_one(query)
         if existing is None:
