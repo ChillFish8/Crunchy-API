@@ -255,10 +255,16 @@
                                     Bot Prefix
                                 </label>
                                 <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
-                                       id="news" type="text" placeholder="{{ guild.prefix }}" maxlength="10">
+                                       id="news" type="text" value="{{ guild.prefix }}" maxlength="10">
                             </div>
                             <div class="mb-6">
-                                <input class="items-center" type="checkbox" id="nsfw" name="nsfw_enabled" value="nsfw">
+                                {% if guild.nsfw %}
+                                    <input class="items-center" type="checkbox" id="nsfw" name="nsfw_enabled"
+                                           value={{ guild.nsfw }} checked>
+                                {% else %}
+                                    <input class="items-center" type="checkbox" id="nsfw" name="nsfw_enabled"
+                                           value={{ guild.nsfw }}>
+                                {% endif %}
                                 <label for="nsfw" class="text-white text-medium font-bold mb-2">NSFW Enabled</label><br>
                             </div>
                             <div class="flex items-center justify-between">
@@ -353,14 +359,14 @@
                                     News Webhook
                                 </label>
                                 <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
-                                       id="news" type="text" placeholder="{{ guild.news_hook }}">
+                                       id="news" type="text" value="{{ guild.news_hook }}">
                             </div>
                             <div class="mb-6">
                                 <label class="block text-white text-medium font-bold mb-2" for="release">
                                     Release Webhook
                                 </label>
                                 <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-white leading-tight placeholder-white"
-                                       id="release" type="text" placeholder="{{ guild.release_hook }}">
+                                       id="release" type="text" value="{{ guild.release_hook }}">
                             </div>
                             <div class="flex items-center justify-between">
                                 <input class="cursor-pointer gradient hover:shadow-lg hover:opacity-75 text-white font-bold py-1 px-4 rounded"
