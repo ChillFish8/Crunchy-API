@@ -34,10 +34,7 @@ def get_templates():
     return mapping
 
 
-jinja2_sanic.setup(
-    app,
-    loader=jinja2.DictLoader(get_templates()),
-)
+jinja2_sanic.setup(app, loader=jinja2.DictLoader(get_templates()))
 
 scheduler = SanicScheduler(app)
 
@@ -46,12 +43,11 @@ broadcast = LiveFeedBroadcasts()
 
 globals.Globals.file_manager = file_manager
 
-news_rss = RSSFeed(
-    rss_url="https://www.crunchyroll.com/newsrss",
-    change_callback=broadcast.news_callback)
-release_rss = RSSFeed(
-    rss_url="http://feeds.feedburner.com/crunchyroll/rss/anime",
-    change_callback=broadcast.release_callback)
+news_rss = RSSFeed(rss_url="https://www.crunchyroll.com/newsrss",
+                   change_callback=broadcast.news_callback)
+release_rss = RSSFeed(rss_url="http://feeds.feedburner.com/crunchyroll/rss/anime",
+                      change_callback=broadcast.release_callback)
+
 
 @task(timedelta(minutes=5))
 async def update_rss(_):
