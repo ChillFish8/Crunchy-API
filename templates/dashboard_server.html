@@ -189,34 +189,33 @@
 
 <section class="p-4 pt-16 w-full h-auto not-quite-dark">
     <div class="flex flex-wrap justify-center w-full h-full">
-        <div class="flex justify-center w-full h-auto">
-            <img class="w-auto h-48 object-fit rounded-full self-center p-4" src="{{ guild.icon }}"
-                 alt="{{ guild.name }}">
-            <div class="self-center">
-                <h1 class="block text-4xl font-bold">{{ guild.name }} ({{ guild.id }})</h1>
-                <div class="block w-full mb-4">
-                    <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+        <div class="flex justify-center w-full h-auto pt-8">
+            <div class="flex rounded-md"
+                 style="background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+                <img class="w-auto h-48 object-fit rounded-full self-center p-4" src="{{ guild.icon }}"
+                     alt="{{ guild.name }}">
+                <div class="self-center pr-4">
+                    <h1 class="block text-4xl font-bold">{{ guild.name }}</h1>
+                    <div class="block w-full mb-4">
+                        <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+                    </div>
+                    <div class="flex items-center justify-around">
+                        <div class="spacer px-8">
+                            <a class="text-center text-2xl font-semibold gradient rounded-full focus:opacity-75 cursor-pointer py-2 px-4">
+                                Server Settings
+                            </a>
+                        </div>
+                        <div class="spacer px-8">
+                            <a class="text-center text-2xl font-semibold gradient rounded-full focus:opacity-75 cursor-pointer py-2 px-4">
+                                Active Users
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="flex justify-around py-4">
-            <div class="spacer px-4">
-                <a class="text-center text-2xl font-semibold gradient rounded-full transition py-2 px-4">
-                    Test
-                </a>
-            </div>
-            <div class="spacer px-4">
-                <a class="text-center text-2xl font-semibold gradient rounded-full py-2 px-4">
-                    Test
-                </a>
-            </div>
-            <div class="spacer px-4">
-                <a class="text-center text-2xl font-semibold gradient rounded-full py-2 px-4">
-                    Test
-                </a>
-            </div>
-        </div>
 
+            </div>
+
+        </div>
     </div>
 </section>
 
