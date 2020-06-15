@@ -36,11 +36,18 @@ class GuildDatabase:
         self.guild_webhooks: pymongo.collection.Collection = self.db['webhooks']
 
     async def process_server_post(self, guild_id, post_data):
-        print(post_data.keys())
-        return
-        if (post_data.get('news_hook', ['None'])[0] != "None") and \
-                (post_data.get('release_hook', ['None'])[0] != "None"):
-            return
+        if any(['news_hook' in list(post_data.keys()), 'release_hook' in list(post_data.keys())]):
+            if (post_data.get('news_hook', ['None'])[0] != "None") and \
+                    (post_data.get('release_hook', ['None'])[0] != "None"):
+                return await self.update_webhook(guild_id, post_data)
+            else:
+                return
+        elif any(['bot_prefix' in list(post_data.keys()), 'nsfw_enabled' in list(post_data.keys())]):
+            if (post_data.get('bot_prefix', ['None'])[0] != "None") and \
+                    (post_data.get('release_hook', ['None'])[0] != "None"):
+                return await self.update_webhook(guild_id, post_data)
+            else:
+                return
 
     async def update_webhook(self, guild_id, post_data):
         data = {
