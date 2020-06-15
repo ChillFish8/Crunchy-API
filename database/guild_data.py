@@ -43,11 +43,7 @@ class GuildDatabase:
             else:
                 return
         elif any(['bot_prefix' in list(post_data.keys()), 'nsfw_enabled' in list(post_data.keys())]):
-            if (post_data.get('bot_prefix', ['None'])[0] != "None") and \
-                    (post_data.get('release_hook', ['None'])[0] != "None"):
-                return await self.update_webhook(guild_id, post_data)
-            else:
-                return
+            return await self.update_webhook(guild_id, post_data)
 
     async def update_webhook(self, guild_id, post_data):
         data = {
