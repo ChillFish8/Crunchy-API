@@ -2,12 +2,14 @@ import jinja2_sanic
 from sanic import response
 from sanic.request import Request
 
+from database.guild_data import GuildDatabase
 from globals import Globals
 from sanic_oauth.blueprint import fetch_user_guilds
 from sanic_oauth.blueprint import login_required
 from sanic_oauth.core import UserInfo
 
 app = Globals.app
+database = GuildDatabase()
 
 UNAUTHORIZED = """<h1>⚠️ 403 — Unauthorized</h1><p>Requested URL {url} unauthorized</p>"""
 
@@ -104,7 +106,31 @@ async def get_server_request(request: Request, user_info: UserInfo, server_id: i
 
 
 async def post_server_update(request: Request, user_info: UserInfo, server_id: int):
+    user_info = user_info.__dict__
+    user_icon = f'https://cdn.discordapp.com/avatars/{user_info["id"]}/{user_info["avatar"]}.png'
+    username = user_info['username']
 
+    _, guilds = await fetch_user_guilds(
+        request=request,
+        provider="discord",
+        oauth_endpoint_path="https://discord.com/api/users/@me/guilds")
+    auth = await check_auth(guilds, server_id)
+    if not auth:
+        return response.html(status=403, body=UNAUTHORIZED.format(url=f"/server/{server_id}"))
+    guilds = await check_perms(guilds, user_info['id'])
+    guild = await get_guild(guilds, server_id)
+
+    await database.update_webhook(guild_id=int(guild['id']), post_data=request.form)
+
+    context = {
+        'logged_in': True,
+        'user': username,
+        'icon': user_icon,
+        'guild': guild,
+    }
+    resp = jinja2_sanic.render_template("templates.dashboard_server", request, context)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 @app.route("/server/<server_id:int>", methods=['GET', 'POST'])
