@@ -40,7 +40,11 @@
         }
 
         .dark {
-            color: #23272A;
+            background: #23272A;
+        }
+
+        .large-outline {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.8), 0 4px 6px -1px rgba(0, 0, 0, 0.8);
         }
 
         body {
@@ -191,7 +195,7 @@
     <div class="flex flex-wrap justify-center w-full h-full">
         <div class="flex justify-center w-full h-auto pt-8">
             <div class="flex rounded-md"
-                 style="background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+                 style="background-color: #23272A; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.8), 0 4px 6px -1px rgba(0, 0, 0, 0.4);">
                 <img class="w-auto h-48 object-fit rounded-full self-center p-4" src="{{ guild.icon }}"
                      alt="{{ guild.name }}">
                 <div class="self-center pr-4">
@@ -231,7 +235,81 @@
 </div>
 
 <section class="w-full h-auto">
+    <div class="container max-w-5xl mx-auto m-8">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-white text-center">
+            Server Settings
+        </h1>
+        <div class="flex flex-wrap py-5 not-quite-dark large-outline rounded-md">
+            <div class="w-5/6 sm:w-1/2 p-6 self-center">
+                <h3 class="cursor-default text-3xl text-white font-bold text-center leading-none mb-3">
+                    Webhook Settings
+                </h3>
+                <div class="block w-full mb-4">
+                    <div class="h-1 mx-auto gradient w-96 opacity-100 my-0 py-0 rounded-full"></div>
+                </div>
+                <div class="flex mb-8 justify-around">
+                    <div class="w-full max-w-xs float-left">
+                        <form class="px-8 pt-6 pb-8 mb-4" method="post">
+                            <div class="mb-4">
+                                <label class="block text-white text-medium font-bold mb-2" for="News Webhook">
+                                    News Webhook
+                                </label>
+                                <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-black leading-tight placeholder-gray-200"
+                                       id="news" type="text" placeholder="{{ guild.news_hook }}">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-white text-medium font-bold mb-2" for="Release Webhook">
+                                    Release Webhook
+                                </label>
+                                <input class="gradient shadow-md appearance-none rounded w-full py-2 px-3 text-black0 leading-tight placeholder-gray-200"
+                                       id="release" type="text" placeholder="{{ guild.release_hook }}">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <input class="cursor-click bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+                                       type="submit" value="Confirm">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
+            <div class="w-full sm:w-1/2 p-4 ">
+                <div class="embed w-full h-full rounded-md border-l-4 pb-4 large-outline"
+                     style="border-color: #e87e15; background-color: #23272A;">
+                    <div class="block h-full">
+                        <div class="inline-block h-full">
+                            <div class="flex w-full pl-2 pt-2">
+                                <div class="flex">
+                                    <img src="https://images-ext-1.discordapp.net/external/wxHt-1g-EhLUVIDxlM_TSnlfxCmFpLoMvzxPcAKykPU/%3Fv%3D1/https/cdn.discordapp.com/emojis/676087821596885013.png"
+                                         class="inline-block rounded-full h-12 w-12 p-2">
+                                    <div class="inline-block font-medium p-2 hover:underline cursor-pointer self-center"
+                                         style="font-size: 20px;">
+                                        Crunchyroll Anime News! - Click for more!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content px-2">
+                                <a class="block font-medium px-4 pl-2">
+                                    <a class="inline-block pl-2 hyper hover:underline cursor-pointer"
+                                       href="https://www.crunchyroll.com/anime-news/2020/06/12/hiro-mashimas-edens-zero-to-get-tv-anime-adaptation">Read
+                                        More</a>
+                                    <p class="inline-block text-white">|</p>
+                                    <a class="inline-block pl-1 hyper hover:underline cursor-pointer"
+                                       href="https://top.gg/bot/656598065532239892/vote">Vote for Crunchy</a>
+                                </a>
+                                <img class="p-2" src="//crunchy-bot.live/data/news/b1p2JiVlbHJ7c0s.png">
+                                <div class="footer">
+                                    <div class="px-2 font-normal" style="color: #46474F;">
+                                        Part of Crunchy, the Crunchyroll bot. Powered by CF8
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 
