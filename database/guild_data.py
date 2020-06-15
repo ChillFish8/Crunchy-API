@@ -43,9 +43,28 @@ class GuildDatabase:
             else:
                 return
         elif any(['bot_prefix' in list(post_data.keys()), 'nsfw_enabled' in list(post_data.keys())]):
-            return await self.update_webhook(guild_id, post_data)
+            return await self.update_guild_settings(guild_id, post_data)
 
     async def update_webhook(self, guild_id, post_data):
+        data = {
+            'news_hook': post_data['news_hook'][0],
+            'release_hook': post_data['release_hook'][0],
+        }
+        hook = GuildWebhook(guild_id, **data)
+        query, data = hook.export
+        existing = self.guild_webhooks.find_one(query)
+        if existing is None:
+            self.guild_webhooks.insert_one({**query, **data})
+        else:
+            config = existing['config']
+            if hook.release_hook is not None:
+                config['release'] = hook.release_hook
+            if hook.news_hook is not None:
+                config['news'] = hook.news_hook
+            if not (hook.news_hook is None and hook.release_hook is None):
+                self.guild_webhooks.find_one_and_update(query, {'$set': {'config': config}})
+
+    async def update_guild_settings(self, guild_id, post_data):
         data = {
             'news_hook': post_data['news_hook'][0],
             'release_hook': post_data['release_hook'][0],
