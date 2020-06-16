@@ -22,7 +22,7 @@ class GuildWebhook:
 
     @property
     def export(self):
-        return {'_id': f"{self.guild_id}"}, \
+        return {'_id': self.guild_id}, \
                {'config': {
                    'guild_id': self.guild_id,
                    'news': self.news_hook,
@@ -38,7 +38,7 @@ class GuildSettings:
 
     @property
     def export(self):
-        return {'_id': int(self.guild_id)}, \
+        return {'_id': f"{self.guild_id}"}, \
                {'config': {
                    'guild_id': self.guild_id,
                    **self.data
@@ -97,7 +97,7 @@ class GuildDatabase:
         existing = self.guild_settings.find_one(query)
         if existing is None:
             print(existing)
-            print(query, data)
+            print(query, data, "No No")
             # self.guild_settings.insert_one({**query, **data})
         else:
             print(existing)
