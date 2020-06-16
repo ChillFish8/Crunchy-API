@@ -32,7 +32,7 @@ class GuildWebhook:
 class GuildSettings:
     def __init__(self, guild_id, **kwargs):
         self.guild_id = guild_id
-        for key, value in kwargs.values():
+        for key, value in kwargs.items():
             setattr(self, key, value)
         self.data = kwargs
 
@@ -61,11 +61,13 @@ class GuildDatabase:
             else:
                 return
         elif any(['bot_prefix' in list(post_data.keys()), 'nsfw_enabled' in list(post_data.keys())]):
+            print(existing_data)
             if (post_data.get('bot_prefix') != existing_data['prefix']) or \
                     (post_data.get('nsfw_enabled') != existing_data['nsfw']):
                 return await self.update_guild_settings(guild_id, post_data)
 
     async def update_webhook(self, guild_id, post_data):
+        print(post_data)
         data = {
             'news_hook': post_data['news_hook'][0],
             'release_hook': post_data['release_hook'][0],
@@ -85,20 +87,16 @@ class GuildDatabase:
                 self.guild_webhooks.find_one_and_update(query, {'$set': {'config': config}})
 
     async def update_guild_settings(self, guild_id, post_data):
+        print(post_data)
         data = {
             'prefix': post_data['bot_prefix'][0],
             'nsfw_enabled': post_data['nsfw_enabled'][0],
         }
         hook = GuildSettings(guild_id, **data)
         query, data = hook.export
-        existing = self.guild_webhooks.find_one(query)
-        if existing is None:
-            self.guild_webhooks.insert_one({**query, **data})
-        else:
-            config = existing['config']
-            if hook.release_hook is not None:
-                config['release'] = hook.release_hook
-            if hook.news_hook is not None:
-                config['news'] = hook.news_hook
-            if not (hook.news_hook is None and hook.release_hook is None):
-                self.guild_webhooks.find_one_and_update(query, {'$set': {'config': config}})
+        existing = self.guild_settings.find_one(query)
+        print(existing)
+        # if existing is None:
+        #     self.guild_settings.insert_one({**query, **data})
+        # else:
+        #     config = existing['config']
