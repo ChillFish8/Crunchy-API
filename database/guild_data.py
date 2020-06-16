@@ -57,17 +57,15 @@ class GuildDatabase:
                     (post_data.get('release_hook', ['None'])[0] != "None"):
                 if (post_data.get('news_hook') != existing_data['news_hook']) or \
                         (post_data.get('release_hook') != existing_data['release_hook']):
-                    return await self.update_guild_settings(guild_id, post_data)
+                    return await self.update_guild_settings(guild_id, post_data, existing_data)
             else:
                 return
         elif any(['bot_prefix' in list(post_data.keys()), 'nsfw_enabled' in list(post_data.keys())]):
-            print(existing_data)
             if (post_data.get('bot_prefix') != existing_data['prefix']) or \
                     (post_data.get('nsfw_enabled') != existing_data['nsfw']):
-                return await self.update_guild_settings(guild_id, post_data)
+                return await self.update_guild_settings(guild_id, post_data, existing_data)
 
-    async def update_webhook(self, guild_id, post_data):
-        print(post_data)
+    async def update_webhook(self, guild_id, post_data, existing):
         data = {
             'news_hook': post_data['news_hook'][0],
             'release_hook': post_data['release_hook'][0],
@@ -86,11 +84,12 @@ class GuildDatabase:
             if not (hook.news_hook is None and hook.release_hook is None):
                 self.guild_webhooks.find_one_and_update(query, {'$set': {'config': config}})
 
-    async def update_guild_settings(self, guild_id, post_data):
-        print(post_data)
+    async def update_guild_settings(self, guild_id, post_data, existing):
+        if post_data.get('bot_prefix') is None and post_data.get('nsfw_enabled') is None:
+            return existing
         data = {
-            'prefix': post_data['bot_prefix'][0],
-            'nsfw_enabled': post_data['nsfw_enabled'][0],
+            'prefix': post_data.get('bot_prefix', [existing['prefix']])[0],
+            'nsfw_enabled': post_data.get('nsfw_enabled', [existing['nsfw']])[0],
         }
         hook = GuildSettings(guild_id, **data)
         query, data = hook.export
