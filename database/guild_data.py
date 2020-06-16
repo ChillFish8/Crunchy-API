@@ -38,7 +38,7 @@ class GuildSettings:
 
     @property
     def export(self):
-        return {'_id': f"{self.guild_id}"}, \
+        return {'_id': int(self.guild_id)}, \
                {'config': {
                    'guild_id': self.guild_id,
                    **self.data
@@ -89,13 +89,17 @@ class GuildDatabase:
             return existing
         data = {
             'prefix': post_data.get('bot_prefix', [existing['prefix']])[0],
-            'nsfw_enabled': post_data.get('nsfw_enabled', [existing['nsfw']])[0],
+            'premium': existing['premium'],
+            'nsfw_enabled': bool(post_data.get('nsfw_enabled', existing['nsfw'])),
         }
         hook = GuildSettings(guild_id, **data)
         query, data = hook.export
         existing = self.guild_settings.find_one(query)
-        print(existing)
-        # if existing is None:
-        #     self.guild_settings.insert_one({**query, **data})
-        # else:
-        #     config = existing['config']
+        if existing is None:
+            print(existing)
+            print(query, data)
+            # self.guild_settings.insert_one({**query, **data})
+        else:
+            print(existing)
+            print(query, data)
+            config = existing['config']
