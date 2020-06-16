@@ -19,4 +19,4 @@ class AnimeApi:
         self.anime.create_index([('english', pymongo.TEXT)])
 
     def search_anime(self, terms: str, limit: int):
-        return list(self.anime.find({"$text": {'$search': terms}}, {'_id': 0}).limit(limit))
+        return list(self.anime.find({"$text": {'$search': terms, '$caseSensitive': False}}, {'_id': 0}).limit(limit))
