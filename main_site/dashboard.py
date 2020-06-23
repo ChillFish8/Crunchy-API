@@ -32,6 +32,7 @@ async def check_auth(guilds, guild_id):
 async def get_guild(guilds, guild_id):
     for guild in guilds:
         if int(guild['id']) == guild_id:
+            existing = await database.get_guild(guild_id=guild_id)
             guild = {
                 'id': guild['id'],
                 'name': guild['name'],

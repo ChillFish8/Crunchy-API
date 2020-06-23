@@ -103,3 +103,8 @@ class GuildDatabase:
             print(existing)
             print(query, data)
             config = existing['config']
+
+    async def get_guild(self, guild_id: int):
+        data_1 = self.guild_settings.find_one({'_id': guild_id})
+        data_2 = self.guild_webhooks.find_one({'_id': guild_id})
+        return data_1, data_2

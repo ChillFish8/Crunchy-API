@@ -1,19 +1,18 @@
-import discord
-import aiohttp
 import asyncio
-import random
-import textwrap
+import base64
 import concurrent.futures
 import io
-import requests
-import os
-from string import ascii_letters, punctuation
-import base64
-
+import random
+import textwrap
 from datetime import datetime
+from string import ascii_letters, punctuation
+
+import aiohttp
+import discord
+import requests
 from PIL import Image, ImageDraw, ImageFont
-from discord import Webhook, AsyncWebhookAdapter
 from bs4 import BeautifulSoup
+from discord import Webhook, AsyncWebhookAdapter
 
 from webhooks.webhook import GuildWebhooks
 from webhooks.webhook_db import MongoDatabase
@@ -217,6 +216,8 @@ class LiveFeedBroadcasts:
         }
         with concurrent.futures.ProcessPoolExecutor(max_workers=2) as pool:
             path = await asyncio.get_event_loop().run_in_executor(pool, self.generate_news_image, payload)
+        print("Generated News with url: {}".format(path))
+        await asyncio.sleep(10)
         embed = discord.Embed(
             description=f"[Read More]({payload['url']}) | "
                         f""
