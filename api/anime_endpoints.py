@@ -20,7 +20,7 @@ daily_list = []
 async def update_daily(_):
     global daily_list
     data = await asyncio.get_event_loop() \
-        .run_in_executor(pool, anime_info.get_daily)
+        .run_in_executor(pool, anime_info_legacy.get_daily)
     daily_list = data
 
 
