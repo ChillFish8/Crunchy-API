@@ -13,7 +13,7 @@ def add_title(item):
     return item
 
 
-def sort_results(results, term):
+def sort_results(results, term, limit=5):
     results = list(map(add_title, results))
     checks = dict(map(mapper, results))
     high_rate = difflib.get_close_matches(term.lower(), checks.keys())
@@ -28,4 +28,4 @@ def sort_results(results, term):
     for high in high_rate:
         results.append(checks.pop(high))
 
-    return [*results, *list(filter(check, results))]
+    return [*results, *list(filter(check, results))][:limit]
