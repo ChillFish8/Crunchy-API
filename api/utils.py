@@ -14,5 +14,5 @@ def sort_results(results, term, limit=5):
         item['ratio'] = SequenceMatcher(None, item.get('title').lower(), term).ratio()
         return item
 
-    results = sorted(list(map(add_title, results)), key=lambda item: item.get('ratio', 0), reverse=True)
+    results = sorted(list(map(add_title, results)), key=lambda item: item.get('ratio', 0) * 100, reverse=True)
     return results[:limit]
