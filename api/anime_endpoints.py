@@ -6,6 +6,7 @@ from database import static
 from database.anime import AnimeApi, AnimeApiLegacy
 from database.static import pool
 from flisk import views
+from api.utils import sort_results
 
 from sanic_scheduler import task
 from datetime import timedelta
@@ -34,12 +35,12 @@ async def anime_search_endpoint(request):
         limit = 15
     if legacy:
         data = await asyncio.get_event_loop() \
-            .run_in_executor(pool, anime_info_legacy.search_anime, terms, limit)
-        return response.json(data)
+            .run_in_executor(pool, anime_info_legacy.search_anime, terms, limit + 10)
     else:
         data = await asyncio.get_event_loop() \
-            .run_in_executor(pool, anime_info.search_anime, terms, limit)
-        return response.json(data)
+            .run_in_executor(pool, anime_info.search_anime, terms, limit + 10)
+    data = sort_results(data, terms, limit)
+    return response.json(data)
 
 
 @views.register_path(name="api/anime/daily", methods=['GET'])
