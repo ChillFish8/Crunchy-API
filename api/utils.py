@@ -27,5 +27,5 @@ def sort_results(results, term, limit=5):
     results = []
     for high in high_rate:
         results.append(checks.pop(high))
-
+    print([*results, *list(filter(check, results))][:limit])
     return [*results, *list(filter(check, results))][:limit]
