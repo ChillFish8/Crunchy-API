@@ -44,18 +44,4 @@ async def anime_search_endpoint(request):
 
 @views.register_path(name="api/anime/daily", methods=['GET'])
 async def daily_picks(request):
-    terms = request.args.get('terms', None)
-    legacy = request.args.get('legacy', False)
-    limit = request.args.get('limit', 5)
-    if terms is None:
-        return response.empty(status=400)
-    if limit > 15:
-        limit = 15
-    if legacy:
-        data = await asyncio.get_event_loop() \
-            .run_in_executor(pool, anime_info_legacy.search_anime, terms, limit)
-        return response.json(data)
-    else:
-        data = await asyncio.get_event_loop() \
-            .run_in_executor(pool, anime_info.search_anime, terms, limit)
-        return response.json(data)
+    return response.json(daily_list)
