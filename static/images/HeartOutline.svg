@@ -9,96 +9,117 @@
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
         xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-        inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-        sodipodi:docname="HeartOutline.svg"
-        id="svg9"
+        version="1.1"
         viewBox="0 0 534 526"
-        version="1.1">
-  <metadata
-          id="metadata15">
-    <rdf:RDF>
-      <cc:Work
-              rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-                rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-          id="defs13">
-    <linearGradient
-            osb:paint="solid"
-            id="linearGradient842">
-      <stop
-              id="stop840"
-              offset="0"
-              style="stop-color:#000000;stop-opacity:1;"/>
-    </linearGradient>
-    <linearGradient
-            gradientUnits="userSpaceOnUse"
-            y2="263.00715"
-            x2="530.79639"
-            y1="263.00715"
-            x1="3.2043824"
-            id="linearGradient844"
-            xlink:href="#linearGradient842"
-            inkscape:collect="always"/>
-  </defs>
-  <sodipodi:namedview
-          inkscape:current-layer="svg9"
-          inkscape:window-maximized="1"
-          inkscape:window-y="-8"
-          inkscape:window-x="1432"
-          inkscape:cy="64.976471"
-          inkscape:cx="267"
-          inkscape:zoom="1.6159696"
-          showgrid="false"
-          id="namedview11"
-          inkscape:window-height="1017"
-          inkscape:window-width="1920"
-          inkscape:pageshadow="2"
-          inkscape:pageopacity="0"
-          guidetolerance="10"
-          gridtolerance="10"
-          objecttolerance="10"
-          borderopacity="1"
-          bordercolor="#666666"
-          pagecolor="#ffffff"/>
-  <g
-          inkscape:transform-center-y="51.852203"
-          inkscape:transform-center-x="16.539637"
-          style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1;fill:#000000"
-          transform="matrix(0.89091839,0,0,1.0095373,32.528363,-3.7460357)"
-          id="HeartOutline">
-    <title
-            style="fill-opacity:1;fill:url(#linearGradient844)"
-            id="title2">Heart Outline, by Adam Stanislav
-    </title>
-    <desc
-            style="fill-opacity:1;fill:url(#linearGradient844)"
-            id="desc4">Hand-drawn on a Wacom tablet
-    </desc>
-    <path
-            style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1;fill:#000000"
-            id="path6"
-            d="m 417.221,3.47 c -56.509,0.0527 -105.7,35.891 -139.78,77.469 -13.191,16.094 -39.574,48.283 -39.574,48.283 -0.22075,-6.9693 -0.65655,-14.571 -2,-19.363 -13.99,-49.92 -67,-86.04 -118.69,-82.8 -38.484,2.4 -79.87,19.95 -101.08,53.2 -23.894,37.46 -10.563,85.62 7.609,123.02 34.091,70.179 96.408,119.46 142.6,180.72 28.401,37.662 37.761,84.718 52.678,128.44 -0.82385,12.896 10.965,13.298 6.5,2.0703 -1.5325,-21.48 6.0708,-42.802 12.807,-63.047 15.416,-46.332 44.051,-87.495 81.812,-118.5 53.661,-44.058 121.05,-69.379 168.51,-121.26 36.683,-40.108 57.984,-103.94 27.879,-152.12 C 493.92,23.4573 452.581,3.4383 417.224,3.4713 Z"/>
-  </g>
-  <g
-          id="g864"
-          transform="matrix(0.85633716,0,0,0.93572254,37.589766,11.361866)"
-          style="fill:#ffffff;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
-          inkscape:transform-center-x="15.897645"
-          inkscape:transform-center-y="48.060902">
-    <title
-            id="title858">Heart Outline, by Adam Stanislav
-    </title>
-    <desc
-            id="desc860">Hand-drawn on a Wacom tablet
-    </desc>
-    <path
-            d="m 417.221,3.47 c -56.509,0.0527 -105.7,35.891 -139.78,77.469 -13.191,16.094 -39.574,48.283 -39.574,48.283 -0.22075,-6.9693 -0.65655,-14.571 -2,-19.363 -13.99,-49.92 -67,-86.04 -118.69,-82.8 -38.484,2.4 -79.87,19.95 -101.08,53.2 -23.894,37.46 -10.563,85.62 7.609,123.02 34.091,70.179 96.408,119.46 142.6,180.72 28.401,37.662 37.761,84.718 52.678,128.44 -0.82385,12.896 10.965,13.298 6.5,2.0703 -1.5325,-21.48 6.0708,-42.802 12.807,-63.047 15.416,-46.332 44.051,-87.495 81.812,-118.5 53.661,-44.058 121.05,-69.379 168.51,-121.26 36.683,-40.108 57.984,-103.94 27.879,-152.12 C 493.92,23.4573 452.581,3.4383 417.224,3.4713 Z"
-            id="path862"
-            style="fill:#ffffff;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"/>
-  </g>
+        id="svg9"
+        sodipodi:docname="HeartOutline.svg"
+        inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+    <metadata
+            id="metadata15">
+        <rdf:RDF>
+            <cc:Work
+                    rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type
+                        rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <defs
+            id="defs13">
+        <linearGradient
+                id="linearGradient842"
+                osb:paint="solid">
+            <stop
+                    style="stop-color:#000000;stop-opacity:1;"
+                    offset="0"
+                    id="stop840"/>
+        </linearGradient>
+        <linearGradient
+                inkscape:collect="always"
+                xlink:href="#linearGradient842"
+                id="linearGradient844"
+                x1="3.2043824"
+                y1="263.00715"
+                x2="530.79639"
+                y2="263.00715"
+                gradientUnits="userSpaceOnUse"/>
+        <clipPath
+                id="clipPath852"
+                clipPathUnits="userSpaceOnUse">
+            <path
+                    style="fill:#00ff00;fill-opacity:1;stroke-width:0.924397;stroke-miterlimit:4;stroke-dasharray:none"
+                    id="path854"
+                    d="m 405.45481,23.214049 c -52.80509,0.0492 -99.7509,32.82323 -132.73356,70.845783 -12.76628,14.717758 -38.29982,44.154188 -38.29982,44.154188 -0.0156,-6.37322 -0.21492,-13.32476 -1.3392,-17.70689 C 221.37507,74.856901 172.82902,41.8271 124.43976,44.790917 88.413546,46.98634 49.261212,63.036076 28.532457,93.442671 5.1805351,127.69925 16.320044,171.74001 32.277451,205.94096 62.213399,270.11712 119.09618,315.18214 160.58362,371.2019 c 25.50851,34.44036 32.9676,77.47162 45.71051,117.45391 -1.12258,11.79306 9.88226,12.16047 6.01716,1.89313 -0.84445,-19.64285 6.84354,-39.14137 13.69182,-57.65499 15.67251,-42.36963 43.55585,-80.01257 79.68893,-108.36647 51.34755,-40.2908 115.0104,-63.44737 160.77755,-110.89197 35.37476,-36.67832 57.0251,-95.05132 30.21202,-139.110077 C 476.57784,41.490514 438.49708,23.184426 405.45758,23.215237 Z"/>
+        </clipPath>
+    </defs>
+    <sodipodi:namedview
+            inkscape:document-rotation="0"
+            pagecolor="#ffffff"
+            bordercolor="#666666"
+            borderopacity="1"
+            objecttolerance="10"
+            gridtolerance="10"
+            guidetolerance="10"
+            inkscape:pageopacity="0"
+            inkscape:pageshadow="2"
+            inkscape:window-width="1440"
+            inkscape:window-height="837"
+            id="namedview11"
+            showgrid="false"
+            inkscape:zoom="1.6159696"
+            inkscape:cx="267"
+            inkscape:cy="163.98823"
+            inkscape:window-x="-8"
+            inkscape:window-y="166"
+            inkscape:window-maximized="1"
+            inkscape:current-layer="svg9"/>
+    <g
+            id="HeartOutline"
+            transform="matrix(0.89091839,0,0,1.0095373,29.434246,-3.1272121)"
+            style="fill:#ececec;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+            inkscape:transform-center-x="16.539637"
+            inkscape:transform-center-y="51.852203">
+        <title
+                id="title2">Heart Outline, by Adam Stanislav
+        </title>
+        <desc
+                id="desc4">Hand-drawn on a Wacom tablet
+        </desc>
+        <path
+                clip-path="url(#clipPath852)"
+                d="m 417.221,3.47 c -56.509,0.0527 -105.7,35.891 -139.78,77.469 -13.191,16.094 -39.574,48.283 -39.574,48.283 -0.22075,-6.9693 -0.65655,-14.571 -2,-19.363 -13.99,-49.92 -67,-86.04 -118.69,-82.8 -38.484,2.4 -79.87,19.95 -101.08,53.2 -23.894,37.46 -10.563,85.62 7.609,123.02 34.091,70.179 96.408,119.46 142.6,180.72 28.401,37.662 37.761,84.718 52.678,128.44 -0.82385,12.896 10.965,13.298 6.5,2.0703 -1.5325,-21.48 6.0708,-42.802 12.807,-63.047 15.416,-46.332 44.051,-87.495 81.812,-118.5 53.661,-44.058 121.05,-69.379 168.51,-121.26 36.683,-40.108 57.984,-103.94 27.879,-152.12 C 493.92,23.4573 452.581,3.4383 417.224,3.4713 Z"
+                id="path6"
+                style="fill:#ececec;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"/>
+    </g>
+    <g
+            inkscape:transform-center-y="48.060902"
+            inkscape:transform-center-x="15.897645"
+            style="fill:none;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+            transform="matrix(0.85633716,0,0,0.93572254,40.06506,12.599513)"
+            id="g864">
+        <title
+                id="title858">Heart Outline, by Adam Stanislav
+        </title>
+        <desc
+                id="desc860">Hand-drawn on a Wacom tablet
+        </desc>
+        <path
+                style="fill:none;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+                id="path862"
+                d="m 417.221,3.47 c -56.509,0.0527 -105.7,35.891 -139.78,77.469 -13.191,16.094 -39.574,48.283 -39.574,48.283 -0.22075,-6.9693 -0.65655,-14.571 -2,-19.363 -13.99,-49.92 -67,-86.04 -118.69,-82.8 -38.484,2.4 -79.87,19.95 -101.08,53.2 -23.894,37.46 -10.563,85.62 7.609,123.02 34.091,70.179 96.408,119.46 142.6,180.72 28.401,37.662 37.761,84.718 52.678,128.44 -0.82385,12.896 10.965,13.298 6.5,2.0703 -1.5325,-21.48 6.0708,-42.802 12.807,-63.047 15.416,-46.332 44.051,-87.495 81.812,-118.5 53.661,-44.058 121.05,-69.379 168.51,-121.26 36.683,-40.108 57.984,-103.94 27.879,-152.12 C 493.92,23.4573 452.581,3.4383 417.224,3.4713 Z"/>
+    </g>
+    <g
+            inkscape:transform-center-y="47.416786"
+            inkscape:transform-center-x="13.201348"
+            style="fill:#00ff00;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+            transform="matrix(0.83249992,-1.8080187e-5,-0.02437009,0.92319423,43.409505,17.112295)"
+            id="g846">
+        <title
+                id="title840">Heart Outline, by Adam Stanislav
+        </title>
+        <desc
+                id="desc842">Hand-drawn on a Wacom tablet
+        </desc>
+    </g>
 </svg>
