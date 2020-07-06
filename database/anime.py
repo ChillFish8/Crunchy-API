@@ -11,10 +11,10 @@ class AnimeApiLegacy:
         self.anime.create_index([('title', pymongo.TEXT)])
 
     def search_anime(self, terms: str, limit: int):
-        return list(self.anime.find({"$text": {'$search': terms}}, {'_id': 0}).limit(limit))
+        return list(self.anime.find({"$text": {'$search': terms, '$caseSensitive': False}}, {'_id': 0}).limit(limit))
 
     def get_daily(self):
-        animes = list(self.anime.find({}, {'_id': 0}).limit(1024))
+        animes = list(self.anime.find({}, {'_id': 0}).limit(2000))
         random.shuffle(animes)
         return animes[:5]
 
