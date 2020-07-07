@@ -34,7 +34,6 @@ async def anime_search_endpoint(request):
     if limit > 15:
         limit = 15
     if legacy:
-        print(terms)
         data = await asyncio.get_event_loop() \
             .run_in_executor(pool, anime_info_legacy.search_anime, terms, limit + 10)
     else:
