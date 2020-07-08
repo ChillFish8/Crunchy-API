@@ -149,7 +149,7 @@ class LiveFeedBroadcasts:
     async def release_callback(self, data):
         first = data['title'].split(" - ")[0]
         first = first.split("(")[0]
-        terms = first.lower().split(" ")
+        terms = first.lower().replace(':', ' ').replace('-', '').split(" ")
         details = await self.get_release_info(terms=terms)
         if details is None:
             return
