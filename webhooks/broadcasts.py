@@ -98,19 +98,22 @@ class WebhookBroadcast:
             self.failed_to_send.append(hook.guild_id)
 
         except Exception as e:
-            print(e)
+            if str(e) == "Invalid webhook URL given.":
+                self.failed_to_send.append(hook.guild_id)
+            else:
+                print(e)
 
     async def broadcast(self):
-        chunks, remaining = divmod(len(self.web_hooks), 10)
+        chunks, remaining = divmod(len(self.web_hooks), 15)
         for i in range(chunks):
             tasks = []
             for guild in self.web_hooks[i * 10:i * 10 + 10]:
                 if guild.url is not None:
                     tasks.append(self.send_func(hook=guild))
             await asyncio.gather(*tasks)
-            await asyncio.sleep(0.75)
+            await asyncio.sleep(1)
         else:
-            await asyncio.sleep(0.75)
+            await asyncio.sleep(1)
             tasks = []
             for guild in self.web_hooks[::-1][:remaining]:
                 if guild.url is not None:
@@ -174,7 +177,7 @@ class LiveFeedBroadcasts:
                f"📌 **[{first[1]}]({data['id']})**\n" \
                f"\n" \
                f"**Description:**\n" \
-               f"{details['desc_long']}\n"
+               f"{details.get('desc_long', 'No Description...')}\n"
         embed.description = desc
         embed.set_image(url=details['thumb_img'])
         embed.set_thumbnail(url=random.choice(RANDOM_THUMBS))
@@ -217,7 +220,7 @@ class LiveFeedBroadcasts:
         with concurrent.futures.ProcessPoolExecutor(max_workers=2) as pool:
             path = await asyncio.get_event_loop().run_in_executor(pool, self.generate_news_image, payload)
         print("Generated News with url: {}".format(path))
-        await asyncio.sleep(10)
+        await asyncio.sleep(20)
         embed = discord.Embed(
             description=f"[Read More]({payload['url']}) | "
                         f""
