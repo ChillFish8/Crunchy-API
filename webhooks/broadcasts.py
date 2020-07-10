@@ -97,11 +97,10 @@ class WebhookBroadcast:
         except discord.NotFound:
             self.failed_to_send.append(hook.guild_id)
 
+        except discord.InvalidArgument:
+            print(hook.url)
         except Exception as e:
-            if str(e) == "Invalid webhook URL given.":
-                self.failed_to_send.append(hook.guild_id)
-            else:
-                print(e)
+            print(e)
 
     async def broadcast(self):
         chunks, remaining = divmod(len(self.web_hooks), 15)
