@@ -107,7 +107,7 @@ class WebhookBroadcast:
         chunks, remaining = divmod(len(self.web_hooks), 15)
         for i in range(chunks):
             tasks = []
-            for guild in self.web_hooks[i * 10:i * 10 + 10]:
+            for guild in self.web_hooks[i * 15:i * 15 + 15]:
                 if guild.url is not None:
                     tasks.append(self.send_func(hook=guild))
             await asyncio.gather(*tasks)
