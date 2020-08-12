@@ -103,11 +103,13 @@ class WebhookBroadcast:
             print(e)
 
     async def broadcast(self):
+        existing = []
         chunks, remaining = divmod(len(self.web_hooks), 15)
         for i in range(chunks):
             tasks = []
             for guild in self.web_hooks[i * 15:i * 15 + 15]:
-                if guild.url is not None:
+                if guild.url is not None and guild.url not in existing:
+                    existing.append(guild.url)
                     tasks.append(self.send_func(hook=guild))
             await asyncio.gather(*tasks)
             await asyncio.sleep(1)
@@ -115,7 +117,8 @@ class WebhookBroadcast:
             await asyncio.sleep(1)
             tasks = []
             for guild in self.web_hooks[::-1][:remaining]:
-                if guild.url is not None:
+                if guild.url is not None and guild.url not in existing:
+                    existing.append(guild.url)
                     tasks.append(self.send_func(hook=guild))
             await asyncio.gather(*tasks)
         self.title = self.title.replace('\n', '')
