@@ -1,5 +1,6 @@
-import pymongo
 import random
+
+import pymongo
 
 from database.static import MongoDatabase
 
@@ -11,13 +12,7 @@ class AnimeApiLegacy:
         self.anime.create_index([('title', pymongo.TEXT)])
 
     def search_anime(self, terms: str, limit: int):
-        return list(
-            self.anime
-                .find({"$text": {'$search': terms, '$caseSensitive': False}},
-                      {'score': {'$meta': 'textScore'}, "_id": 0})
-                .sort([("score", {"$meta": "textScore"})])
-                .limit(limit)
-        )
+        return list(self.anime.find({"$text": {'$search': terms, '$caseSensitive': False}}, {'_id': 0}).limit(limit))
 
     def get_daily(self):
         animes = list(self.anime.find({}, {'_id': 0}).limit(2000))
@@ -32,10 +27,4 @@ class AnimeApi:
         self.anime.create_index([('english', pymongo.TEXT)])
 
     def search_anime(self, terms: str, limit: int):
-        return list(
-            self.anime
-                .find({"$text": {'$search': terms, '$caseSensitive': False}},
-                      {'score': {'$meta': 'textScore'}, "_id": 0})
-                .sort([("score", {"$meta": "textScore"})])
-                .limit(limit)
-        )
+        return list(self.anime.find({"$text": {'$search': terms, '$caseSensitive': False}}, {'_id': 0}).limit(limit))
