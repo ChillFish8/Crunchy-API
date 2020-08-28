@@ -152,7 +152,7 @@ class LiveFeedBroadcasts:
         self.first_start = True
 
     async def release_callback(self, data):
-        terms = data.get("crunchyroll_seriestitle").lower().replace(':', ' ').split(" ")
+        terms = data.get("crunchyroll_seriestitle").lower().split(" ")
         details = await self.get_release_info(terms=terms)
         if details is None:
             return
