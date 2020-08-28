@@ -152,13 +152,13 @@ class LiveFeedBroadcasts:
         self.first_start = True
 
     async def release_callback(self, data):
-        terms = data.get("crunchyroll_seriestitle").split(" ")
+        terms = data["crunchyroll_seriestitle"].split(" ")
         details = await self.get_release_info(terms=terms)
         if details is None:
             return
         else:
             anime_details = details['data']
-            embed = self.make_release_embed(anime_details, data, data['title'].split(" - "))
+            embed = self.make_release_embed(anime_details, data, data["crunchyroll_episodenumber"])
             guilds = self.database.get_all_webhooks()
             web_hooks = list(map(map_objects_releases, guilds))
             async with WebhookBroadcast(
@@ -167,14 +167,14 @@ class LiveFeedBroadcasts:
                 await broadcast.broadcast()
 
     @staticmethod
-    def make_release_embed(details: dict, data: dict, first):
+    def make_release_embed(details: dict, data: dict, ep_num: int):
         embed = discord.Embed(
             title=f"{data['title']}", url=data.get('id', None), color=COLOUR)
         desc = f"⭐ **Rating:** {details['reviews']} / 5 stars\n" \
                f"[Read the reviews here!]" \
-               f"({'https://www.crunchyroll.com/{}/reviews'.format(details['title'].lower().replace(' ', '-'))})\n" \
+               f"({'https://www.crunchyroll.com/{}/reviews'.format(data['crunchyroll_seriestitle'].lower().replace(' ', '-'))})\n" \
                f"\n" \
-               f"📌 **[{first[1]}]({data['id']})**\n" \
+               f"📌 **[Episode {ep_num}]({data['id']})**\n" \
                f"\n" \
                f"**Description:**\n" \
                f"{details.get('desc_long', 'No Description...')}\n"
