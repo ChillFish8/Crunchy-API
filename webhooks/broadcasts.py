@@ -152,7 +152,7 @@ class LiveFeedBroadcasts:
         self.first_start = True
 
     async def release_callback(self, data):
-        terms = data.get("crunchyroll_seriestitle")
+        terms = data.get("crunchyroll_seriestitle").split(" ")
         details = await self.get_release_info(terms=terms)
         if details is None:
             return
@@ -186,8 +186,8 @@ class LiveFeedBroadcasts:
         return embed
 
     @classmethod
-    async def get_release_info(cls, terms: str):
-        url = API_BASE + "/details?terms=" + "&legacy=True" + terms
+    async def get_release_info(cls, terms: list):
+        url = API_BASE + "/details?legacy=True&terms=" + "+".join(terms)
         async with aiohttp.ClientSession() as sess:
             async with sess.get(url) as resp:
                 if resp.status == 200:
