@@ -1,19 +1,20 @@
+import aiohttp
 import asyncio
 import base64
 import concurrent.futures
+import discord
 import io
 import random
-import textwrap
-from datetime import datetime
-from string import ascii_letters, punctuation
-
-import aiohttp
-import discord
 import requests
+import textwrap
 from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
+from datetime import datetime
 from discord import Webhook, AsyncWebhookAdapter
+from string import ascii_letters, punctuation
 
+from database.static import db as anime_db
+from utils.fetch_new import fetch_new_anime
 from webhooks.webhook import GuildWebhooks
 from webhooks.webhook_db import MongoDatabase
 
@@ -90,12 +91,14 @@ class WebhookBroadcast:
 
     async def send_func(self, hook: MicroGuildWebhook):
         try:
-            webhook = Webhook.from_url(hook.url, adapter=AsyncWebhookAdapter(self.session))
+            webhook = Webhook.from_url(hook.url.replace("discordapp", "discord"),
+                                       adapter=AsyncWebhookAdapter(self.session))
             await webhook.send(embed=self.embed, content=hook.content, username=self.name)
             self.successful += 1
 
         except discord.NotFound:
-            self.failed_to_send.append(hook.guild_id)
+            # self.failed_to_send.append(hook.guild_id)
+            pass
 
         except discord.InvalidArgument:
             print(hook.url)
@@ -140,6 +143,15 @@ def map_objects_news(data):
     return guild
 
 
+async def send_anime_webhook_update(name: str):
+    url = "https://discordapp.com/api/webhooks/760633471735169044/XR-qr0pyHzDW0lwk9X" \
+          "R_rKlfAXC0XRZctvR9E8gUSl75ZamP2h0bWXvzuE_nVc4aFhPC"
+
+    async with aiohttp.ClientSession() as session:
+        webhook = Webhook.from_url(url, adapter=AsyncWebhookAdapter(session))
+        await webhook.send(content="Added Anime to database: {}".format(name))
+
+
 class LiveFeedBroadcasts:
     def __init__(self):
         self.loop = asyncio.get_event_loop()
@@ -153,7 +165,7 @@ class LiveFeedBroadcasts:
 
     async def release_callback(self, data):
         terms = data["crunchyroll_seriestitle"].split(" ")
-        details = await self.get_release_info(terms=terms)
+        details = await self.get_release_info(terms=terms, data=data)
         if details is None:
             return
         else:
@@ -186,7 +198,7 @@ class LiveFeedBroadcasts:
         return embed
 
     @classmethod
-    async def get_release_info(cls, terms: list):
+    async def get_release_info(cls, terms: list, data: dict):
         url = API_BASE + "/details?legacy=True&terms=" + "+".join(terms)
         async with aiohttp.ClientSession() as sess:
             async with sess.get(url) as resp:
@@ -196,7 +208,11 @@ class LiveFeedBroadcasts:
                         print(f"[ ERROR ] Api GET request failed to returned searched anime.")
                         return
                     else:
-                        return results[0]
+                        title = " ".join(terms).lower()
+                        for result in results:
+                            if result['title'].lower() == title:
+                                return result
+                        return
                 else:
                     print(f"[ ERROR ] Api GET request failed with status {resp.status}")
                     return
