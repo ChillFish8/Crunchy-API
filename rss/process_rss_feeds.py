@@ -30,8 +30,12 @@ class RSSFeed:
         return feeds[0]
 
 
+async def test(feed):
+    print(feed)
+
+
 async def main():
-    rss = RSSFeed(rss_url="http://feeds.feedburner.com/crunchyroll/rss/anime", change_callback="owo")
+    rss = RSSFeed(rss_url="http://feeds.feedburner.com/crunchyroll/rss/anime", change_callback=test)
     await rss.check_update()
 
 if __name__ == "__main__":

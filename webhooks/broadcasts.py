@@ -7,14 +7,14 @@ import io
 import random
 import requests
 import textwrap
+import re
+
 from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from datetime import datetime
 from discord import Webhook, AsyncWebhookAdapter
 from string import ascii_letters, punctuation
 
-from database.static import db as anime_db
-from utils.fetch_new import fetch_new_anime
 from webhooks.webhook import GuildWebhooks
 from webhooks.webhook_db import MongoDatabase
 
@@ -50,11 +50,13 @@ PFP_PATH = r'crunchy_image.png'
 
 characters = list(ascii_letters) + list(punctuation)
 
+
 def encode():
     random.shuffle(characters)
     file_name = "".join(characters[:11])
     new = str(base64.urlsafe_b64encode(file_name.encode("utf-8")), "utf-8").replace("=", "")
     return new
+
 
 class MicroGuildWebhook:
     def __init__(self, guild_id, url, mentions=None):
@@ -152,6 +154,15 @@ async def send_anime_webhook_update(name: str):
         await webhook.send(content="Added Anime to database: {}".format(name))
 
 
+def get_summary(feed) -> str:
+    data: str = feed['summary']
+
+    stripper = re.compile(r"<[^>]*>")
+    for item in stripper.findall(data):
+        data = data.replace(item, "")
+    return data
+
+
 class LiveFeedBroadcasts:
     def __init__(self):
         self.loop = asyncio.get_event_loop()
@@ -163,14 +174,14 @@ class LiveFeedBroadcasts:
         self.callbacks = {'release': self.release_callback, 'payload': self.news_callback}
         self.first_start = True
 
-    async def release_callback(self, data):
-        terms = data["crunchyroll_seriestitle"].split(" ")
-        details = await self.get_release_info(terms=terms, data=data)
+    async def release_callback(self, feed):
+        terms = feed["crunchyroll_seriestitle"].split(" ")
+        details = await self.get_release_info(terms=terms, data=feed)
         if details is None:
             return
         else:
             anime_details = details['data']
-            embed = self.make_release_embed(anime_details, data, data["crunchyroll_episodenumber"])
+            embed = self.make_release_embed(anime_details, feed, feed["crunchyroll_episodenumber"])
             guilds = self.database.get_all_webhooks()
             web_hooks = list(map(map_objects_releases, guilds))
             async with WebhookBroadcast(
@@ -180,6 +191,7 @@ class LiveFeedBroadcasts:
 
     @staticmethod
     def make_release_embed(details: dict, data: dict, ep_num: int):
+        summary = get_summary(data)
         embed = discord.Embed(
             title=f"{data['title']}", url=data.get('id', None), color=COLOUR)
         desc = f"⭐ **Rating:** {details['reviews']} / 5 stars\n" \
@@ -189,12 +201,13 @@ class LiveFeedBroadcasts:
                f"📌 **[Episode {ep_num}]({data['id']})**\n" \
                f"\n" \
                f"**Description:**\n" \
-               f"{details.get('desc_long', 'No Description...')}\n"
+               f"{summary}\n"
         embed.description = desc
         embed.set_image(url=details['thumb_img'])
         embed.set_thumbnail(url=random.choice(RANDOM_THUMBS))
         embed.set_footer(text="Anime releases from Crunchyroll. Bot powered by CF8")
-        embed.set_author(name="Crunchyroll New Release! - Click for more!", url=data.get('id', None), icon_url=CR_LOGO)
+        embed.set_author(name="Crunchyroll New Release! - Click for more!",
+                         url=data.get('id', None), icon_url=CR_LOGO)
         return embed
 
     @classmethod
@@ -234,7 +247,8 @@ class LiveFeedBroadcasts:
             'url': data['id']
         }
         with concurrent.futures.ProcessPoolExecutor(max_workers=2) as pool:
-            path = await asyncio.get_event_loop().run_in_executor(pool, self.generate_news_image, payload)
+            path = await asyncio.get_event_loop().run_in_executor(pool, self.generate_news_image,
+                                                                  payload)
         print("Generated News with url: {}".format(path))
         await asyncio.sleep(20)
         embed = discord.Embed(
