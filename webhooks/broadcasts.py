@@ -5,10 +5,9 @@ import concurrent.futures
 import discord
 import io
 import random
+import re
 import requests
 import textwrap
-import re
-
 from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from datetime import datetime
@@ -22,7 +21,7 @@ from webhooks.webhook_db import MongoDatabase
 ICON = "https://cdn.discordapp.com/app-icons/656598065532239892/39344a26ba0c5b2c806a60b9523017f3.png"
 
 # Urls
-API_BASE = "https://crunchy-bot.live/api/anime"
+API_BASE = "https://legacy.crunchy.gg/api/anime"
 
 # Black list
 EXCLUDE_IN_TITLE = [
@@ -345,4 +344,4 @@ class LiveFeedBroadcasts:
                     )
         name = encode()
         original.save(f"data/news/{name}.png")
-        return "https://crunchy-bot.live/" + f"data/news/{name}.png"
+        return "https://legacy.crunchy.gg/" + f"data/news/{name}.png"
